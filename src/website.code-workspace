@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "../../../website"
+    },
+    {
+      "path": "../.."
+    },
+    {
+      "path": "../../../mui-example"
+    },
+    {
+      "path": "../../../comic-client-render"
+    },
+    {
+      "path": "../../../comic-api-render"
+    }
+  ],
+  "settings": {}
+}

@@ -1,0 +1,25 @@
+.modalBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 90vw;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 10px;
+}
+
+.addButton {
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: none;
+  background-color: #f57f17;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}

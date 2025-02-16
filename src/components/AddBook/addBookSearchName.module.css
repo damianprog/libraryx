@@ -1,0 +1,13 @@
+.searchInput {
+  width: 100%;
+}
+
+.buttons {
+  margin-top: 10px;
+  display: flex;
+  align-items: stretch;
+}
+
+.buttons button {
+  width: 50%;
+}
