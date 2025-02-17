@@ -18,7 +18,7 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <SearchAppBar />
-        <AddBookModal buttonText="Search" buttonColor="amber" />
+        <AddBookModal />
       </ThemeProvider>
     </>
   );

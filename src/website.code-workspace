@@ -14,7 +14,12 @@
     },
     {
       "path": "../../../comic-api-render"
+    },
+    {
+      "path": "../../../css-grid-traversy"
     }
   ],
-  "settings": {}
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "css-grid-traversy"
+  }
 }

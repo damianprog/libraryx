@@ -1,14 +1,18 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
 import Modal from "@mui/material/Modal";
 import styles from "./addBookModal.module.css";
 import AddBookSearchName from "../AddBook/AddBookSearchName";
+import { useState } from "react";
 
-export default function AddBookModal({ modalContent }) {
-  const [open, setOpen] = React.useState(false);
+function AddBookModal({ modalContent }) {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = (_, reason) => {
+    // if (reason !== "backdropClick") {
+    setOpen(false);
+    // }
+  };
 
   return (
     <div>
@@ -33,3 +37,5 @@ export default function AddBookModal({ modalContent }) {
     </div>
   );
 }
+
+export default AddBookModal;

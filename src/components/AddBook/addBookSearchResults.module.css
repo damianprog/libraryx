@@ -1,0 +1,44 @@
+.resultsRow {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+
+.resultsRowImg {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.resultsRowInfo {
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+.resultRowDescriptions {
+  padding-left: 10px;
+}
+
+.resultRowDescriptions p {
+  margin: 10px 0;
+}
+
+.descriptionsTitle {
+  color: #1c76d2;
+}
+
+.resultsRowDate {
+  color: #757575;
+  font-size: 14px;
+}
+
+.resultsRowAdd {
+  color: #4caf50;
+  cursor: pointer;
+}
+
+.resultsRowDate,
+.resultsRowAdd {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}

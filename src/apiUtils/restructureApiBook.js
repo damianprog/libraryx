@@ -3,7 +3,13 @@ const getAuthors = (book) => {
 };
 
 const getPublishedDate = (book) => {
-  return book.volumeInfo.publishedDate ? book.volumeInfo.publishedDate : "";
+  let publishedDate = "";
+
+  if (book.volumeInfo.publishedDate) {
+    publishedDate = book.volumeInfo.publishedDate.slice(0, 4);
+  }
+
+  return publishedDate;
 };
 
 const getTitle = (book) => {
