@@ -1,0 +1,59 @@
+.searchInput {
+  width: 100%;
+}
+
+.buttons {
+  margin-top: 10px;
+  display: flex;
+  align-items: stretch;
+}
+
+.buttons button {
+  width: 50%;
+}
+
+.modalBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 90vw;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 10px;
+  max-height: 90vh;
+  overflow: scroll;
+}
+
+.modalBoxClose {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+}
+
+.modalBoxClose svg {
+  cursor: pointer;
+}
+
+.modalBoxSearch {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.modalBoxSearchInput {
+  width: 91%;
+}
+
+.modalBoxSearch button {
+  background: none;
+  border: none;
+  color: #1c76d2;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.buttons a button {
+  width: 100%;
+}

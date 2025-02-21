@@ -1,8 +1,10 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import { useState } from "react";
 import getBooksByName from "../../apiUtils/getBooksByName";
-import styles from "./addBookSearchName.module.css";
+import styles from "./addBookSearch.module.css";
 import AddBookSearchResults from "./AddBookSearchResults";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
 
 function AddBookSearchName() {
   const [input, setInput] = useState("");
@@ -29,8 +31,6 @@ function AddBookSearchName() {
       setFoundBooks(foundBooks);
 
       handleOpen();
-
-      console.log(foundBooks);
     }
   }
 
@@ -48,18 +48,35 @@ function AddBookSearchName() {
         <Button onClick={getBooks} variant="text">
           Search
         </Button>
-        <Button variant="text">Add the book manually</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className={styles.modalBox}>
-            <AddBookSearchResults books={foundBooks} />
-          </Box>
-        </Modal>
+        <Link to="/add-book">
+          <Button variant="text">Add the book manually</Button>
+        </Link>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className={styles.modalBox}>
+          <div className={styles.modalBoxClose}>
+            <CloseIcon onClick={handleClose} />
+          </div>
+          <div className={styles.modalBoxSearch}>
+            <TextField
+              className={styles.modalBoxSearchInput}
+              label="Title, author, ..."
+              variant="outlined"
+              value={input}
+              onChange={handleInputChange}
+            />
+            <button onClick={getBooks} variant="text">
+              OK
+            </button>
+          </div>
+          <AddBookSearchResults books={foundBooks} />
+        </Box>
+      </Modal>
     </>
   );
 }

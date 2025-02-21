@@ -1,0 +1,43 @@
+.addBookHeader {
+  height: 65px;
+  background-color: #1976d2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  padding: 0 10px;
+}
+
+.container h1 {
+  font-size: 1.25rem;
+  /* font-weight: normal; */
+}
+
+.addBookInputs {
+  margin-top: 20px;
+}
+
+.input {
+  width: 100%;
+}
+
+.addBookInputsRow {
+  display: flex;
+  column-gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.addButton {
+  width: 100%;
+}
+
+.authorRowIcon {
+  cursor: pointer;
+}

@@ -1,5 +1,34 @@
 const getAuthors = (book) => {
-  return book.volumeInfo.authors ? book.volumeInfo.authors.join() : "";
+  // return book.volumeInfo.authors ? book.volumeInfo.authors : [""];
+
+  // return [
+  //   {
+  //     firstname: "Jon",
+  //     lastname: "Snow",
+  //   },
+  //   {
+  //     firstname: "Jon",
+  //     lastname: "Snow",
+  //   },
+  //   {
+  //     firstname: "Jon",
+  //     lastname: "Snow",
+  //   },
+  // ];
+
+  let authors = [];
+  if (book.volumeInfo.authors) {
+    authors = book.volumeInfo.authors.map((names) => {
+      const authorNames = names.split(" ");
+
+      return {
+        firstname: authorNames[0],
+        lastname: authorNames.slice(1).join(" "),
+      };
+    });
+  }
+
+  return authors;
 };
 
 const getPublishedDate = (book) => {
@@ -60,6 +89,14 @@ const getImg = (book) => {
   return img;
 };
 
+const getPublisher = (book) => {
+  return book.volumeInfo.publisher ? book.volumeInfo.publisher : "";
+};
+
+const getPages = (book) => {
+  return book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "";
+};
+
 const restructureApiBook = (book) => {
   const restructuredBook = {
     id: book.id,
@@ -69,6 +106,11 @@ const restructureApiBook = (book) => {
     categories: getCategories(book),
     isbn: getIsbn(book),
     img: getImg(book),
+    publisher: getPublisher(book),
+    pages: getPages(book),
+    series: "",
+    volume: "",
+    summary: "",
   };
 
   return restructuredBook;
