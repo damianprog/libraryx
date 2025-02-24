@@ -1,0 +1,50 @@
+.searchAppBar {
+  height: 65px;
+  background: #1976d2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /* z-index: 9001; */
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  padding: 0 10px;
+}
+.deafultMenu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deafultMenuLeftSide {
+  display: flex;
+}
+
+.deafultMenu h1 {
+  font-size: 1.25rem;
+  margin-left: 20px;
+}
+
+.searchInput {
+  color: #fff;
+  background: none;
+  border: 1px solid white;
+  border-radius: 4px;
+  width: 100%;
+  margin-left: 20px;
+  height: 40px;
+}
+
+.searchInput::placeholder {
+  color: #fff;
+}
+
+.searchMenu {
+  display: flex;
+  align-items: center;
+}

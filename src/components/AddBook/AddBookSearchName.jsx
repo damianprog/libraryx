@@ -57,6 +57,7 @@ function AddBookSearchName() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        hideBackdrop={true}
       >
         <Box className={styles.modalBox}>
           <div className={styles.modalBoxClose}>

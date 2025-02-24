@@ -1,10 +1,21 @@
 .addBookHeader {
   height: 65px;
-  background-color: #1976d2;
+  background: #1976d2;
   color: #fff;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9001;
+}
+
+.backIcon {
+  color: #fff;
+}
+
+.addBookHeader .container {
+  display: flex;
 }
 
 .container {
@@ -16,11 +27,11 @@
 
 .container h1 {
   font-size: 1.25rem;
-  /* font-weight: normal; */
+  margin-left: 20px;
 }
 
 .addBookInputs {
-  margin-top: 20px;
+  margin-top: 85px;
 }
 
 .input {

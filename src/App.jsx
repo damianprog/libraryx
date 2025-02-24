@@ -14,6 +14,9 @@ function App() {
       amber: {
         main: "#F57F17",
       },
+      white: {
+        main: "#FFFFFF",
+      },
     },
   });
 

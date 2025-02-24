@@ -1,89 +1,50 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import { styled, alpha } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import MenuIcon from "@mui/icons-material/Menu";
-import InputBase from "@mui/material/InputBase";
+import styles from "./searchAppBar.module.css";
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useState } from "react";
 
-export default function SearchAppBar() {
-  const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
-  }));
+const SearchAppBar = ({ onSearchInputChange }) => {
+  const [isDefaultMenuShown, setIsSearchMenuShown] = useState(true);
+  const [input, setInput] = useState("");
 
-  const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }));
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+    onSearchInputChange(input);
+  };
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    width: "100%",
-    "& .MuiInputBase-input": {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create("width"),
-      [theme.breakpoints.up("sm")]: {
-        width: "12ch",
-        "&:focus": {
-          width: "20ch",
-        },
-      },
-    },
-  }));
+  const handleMenuSwitch = () => {
+    setIsSearchMenuShown(!isDefaultMenuShown);
+  };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
-            LibraryX
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
+    <header className={styles.searchAppBar}>
+      <div className={styles.container}>
+        {isDefaultMenuShown ? (
+          <div className={styles.deafultMenu}>
+            <div className={styles.deafultMenuLeftSide}>
+              <MenuIcon />
+              <h1>LibraryX</h1>
+            </div>
+            <div className={styles.deafultMenuRightSide}>
+              <SearchIcon onClick={handleMenuSwitch} />
+            </div>
+          </div>
+        ) : (
+          <div className={styles.searchMenu}>
+            <ArrowBackIcon onClick={handleMenuSwitch} />
+            <input
+              id="searchInput"
+              className={styles.searchInput}
+              type="text"
+              placeholder="Search..."
+              onChange={handleInputChange}
             />
-          </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          </div>
+        )}
+      </div>
+    </header>
   );
-}
+};
+
+export default SearchAppBar;

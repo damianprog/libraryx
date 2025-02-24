@@ -17,6 +17,9 @@
     },
     {
       "path": "../../../css-grid-traversy"
+    },
+    {
+      "path": "../../../firebase"
     }
   ],
   "settings": {

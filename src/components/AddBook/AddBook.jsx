@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styles from "./addBook.module.css";
 
@@ -75,6 +76,9 @@ const AddBook = () => {
     <div className={styles.addBook}>
       <header className={styles.addBookHeader}>
         <div className={styles.container}>
+          <Link className={styles.backIcon} to="/">
+            <ArrowBackIcon />
+          </Link>
           <h1>LibraryX</h1>
         </div>
       </header>
