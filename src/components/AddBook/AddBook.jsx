@@ -1,16 +1,18 @@
 import { Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styles from "./addBook.module.css";
+import { collection, addDoc, doc } from "firebase/firestore";
+import { db, auth } from "../../config/firebase";
 
 const AddBook = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const [book, setBook] = useState({
-    id: "",
     title: "",
     authors: [{ firstname: "", lastname: "" }],
     publishedDate: "",
@@ -22,17 +24,16 @@ const AddBook = () => {
     series: "",
     volume: "",
     summary: "",
+    userId: "",
   });
+
+  const booksCollectionRef = useMemo(() => collection(db, "books"), []);
 
   useEffect(() => {
     if (state) {
       setBook(state);
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log("book.authors", book.authors);
-  // }, [book]);
 
   const addAuthorRow = () => {
     let isAnyRowEmpty = false;
@@ -70,6 +71,24 @@ const AddBook = () => {
     bookCopy.authors[index].firstname = event.target.value;
 
     setBook(bookCopy);
+  };
+
+  const onSubmitBook = async () => {
+    const authorsNames = book.authors.map((author) => {
+      return `${author.firstname} ${author.lastname}`;
+    });
+
+    try {
+      await addDoc(booksCollectionRef, {
+        ...book,
+        authors: authorsNames.join(", "),
+        userId: auth.currentUser.uid,
+      });
+
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -182,7 +201,11 @@ const AddBook = () => {
             />
           </div>
           <div className={styles.addBookInputsRow}>
-            <Button className={styles.addButton} variant="contained">
+            <Button
+              className={styles.addButton}
+              variant="contained"
+              onClick={onSubmitBook}
+            >
               OK
             </Button>
           </div>

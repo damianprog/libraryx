@@ -1,8 +1,15 @@
 import AddIcon from "@mui/icons-material/Add";
-import styles from "./addBookSearchResults.module.css";
+import { useNavigate } from "react-router-dom";
+import styles from "./booksList.module.css";
 
-function AddBookSearchResults({ books }) {
+function BooksList({ books, showAddButton }) {
+  const navigate = useNavigate();
+
   const getAuthors = (book) => {
+    if (typeof book.authors === "string") {
+      return book.authors;
+    }
+
     const authors = book.authors.map((author) => {
       return `${author.firstname} ${author.lastname}`;
     });
@@ -10,8 +17,12 @@ function AddBookSearchResults({ books }) {
     return authors.join(", ");
   };
 
+  const onResultAdd = (book) => {
+    navigate("/add-book", { state: book });
+  };
+
   return (
-    <div>
+    <div className={styles.container}>
       {books.map((book) => (
         <div className={styles.resultsRow} key={book.id}>
           <div
@@ -26,9 +37,17 @@ function AddBookSearchResults({ books }) {
               <p>{getAuthors(book)}</p>
             </div>
             <div className={styles.resultsRowDate}>{book.publishedDate}</div>
-            <div className={styles.resultsRowAdd}>
-              <AddIcon />
-            </div>
+            {showAddButton ? (
+              <div className={styles.resultsRowAdd}>
+                <AddIcon
+                  onClick={() => {
+                    onResultAdd(book);
+                  }}
+                />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       ))}
@@ -36,4 +55,4 @@ function AddBookSearchResults({ books }) {
   );
 }
 
-export default AddBookSearchResults;
+export default BooksList;

@@ -12,6 +12,8 @@
 
 .backIcon {
   color: #fff;
+  display: flex;
+  align-items: center;
 }
 
 .addBookHeader .container {

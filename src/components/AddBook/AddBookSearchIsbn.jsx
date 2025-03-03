@@ -9,8 +9,6 @@ const AddBookSearchIsbn = () => {
   const [book, setBook] = useState([]);
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => setInput(event.target.value);
-
   async function getBooks() {
     if (input !== "") {
       let foundBook = await getBookByIsbn(input);
@@ -31,7 +29,7 @@ const AddBookSearchIsbn = () => {
         label="ISBN Number"
         variant="outlined"
         value={input}
-        onChange={handleInputChange}
+        onChange={(e) => setInput(e.target.value)}
       />
       <br />
       <div className={styles.buttons}>

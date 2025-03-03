@@ -2,7 +2,7 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 import { useState } from "react";
 import getBooksByName from "../../apiUtils/getBooksByName";
 import styles from "./addBookSearch.module.css";
-import AddBookSearchResults from "./AddBookSearchResults";
+import BooksList from "../booksList/BooksList";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 
@@ -75,7 +75,7 @@ function AddBookSearchName() {
               OK
             </button>
           </div>
-          <AddBookSearchResults books={foundBooks} />
+          <BooksList books={foundBooks} />
         </Box>
       </Modal>
     </>

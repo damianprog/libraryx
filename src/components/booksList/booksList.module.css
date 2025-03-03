@@ -1,6 +1,12 @@
+.container {
+  max-width: 500px;
+  width: 100%;
+}
+
 .resultsRow {
   display: grid;
   grid-template-columns: 1fr 6fr;
+  width: 100%;
 }
 
 .resultsRowImg {

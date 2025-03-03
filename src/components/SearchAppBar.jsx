@@ -23,16 +23,16 @@ const SearchAppBar = ({ onSearchInputChange }) => {
         {isDefaultMenuShown ? (
           <div className={styles.deafultMenu}>
             <div className={styles.deafultMenuLeftSide}>
-              <MenuIcon />
+              <MenuIcon className={styles.icon} />
               <h1>LibraryX</h1>
             </div>
             <div className={styles.deafultMenuRightSide}>
-              <SearchIcon onClick={handleMenuSwitch} />
+              <SearchIcon className={styles.icon} onClick={handleMenuSwitch} />
             </div>
           </div>
         ) : (
           <div className={styles.searchMenu}>
-            <ArrowBackIcon onClick={handleMenuSwitch} />
+            <ArrowBackIcon className={styles.icon} onClick={handleMenuSwitch} />
             <input
               id="searchInput"
               className={styles.searchInput}

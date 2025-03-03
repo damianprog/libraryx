@@ -4,6 +4,7 @@ import AddBookModal from "./components/BasicModal/AddBookModal";
 import SearchAppBar from "./components/SearchAppBar";
 import AddBookPage from "./pages/AddBookPage";
 import Home from "./pages/HomePage";
+import SignPage from "./pages/SignPage";
 
 function App() {
   const theme = createTheme({
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/add-book" element={<AddBookPage />} />
+            <Route path="/sign" element={<SignPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

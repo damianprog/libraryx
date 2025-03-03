@@ -19,10 +19,13 @@
 .deafultMenu {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.deafultMenuLeftSide {
+.deafultMenuLeftSide,
+.deafultMenuRightSide {
   display: flex;
+  align-items: center;
 }
 
 .deafultMenu h1 {
