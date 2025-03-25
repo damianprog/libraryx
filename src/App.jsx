@@ -1,10 +1,9 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AddBookModal from "./components/BasicModal/AddBookModal";
-import SearchAppBar from "./components/SearchAppBar";
 import AddBookPage from "./pages/AddBookPage";
 import Home from "./pages/HomePage";
 import SignPage from "./pages/SignPage";
+import UserBookPage from "./pages/UserBookPage";
 
 function App() {
   const theme = createTheme({
@@ -29,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/add-book" element={<AddBookPage />} />
             <Route path="/sign" element={<SignPage />} />
+            <Route path="/user-book" element={<UserBookPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

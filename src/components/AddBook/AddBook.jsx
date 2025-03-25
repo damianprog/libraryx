@@ -145,6 +145,17 @@ const AddBook = () => {
           <div className={styles.addBookInputsRow}>
             <TextField
               className={styles.input}
+              label="Summary"
+              variant="outlined"
+              multiline
+              rows={2}
+              value={book.summary ? book.summary : ""}
+              onChange={(event) => handleInputChange(event, "summary")}
+            />
+          </div>
+          <div className={styles.addBookInputsRow}>
+            <TextField
+              className={styles.input}
               label="Series"
               variant="outlined"
               value={book.series ? book.series : ""}

@@ -2,7 +2,7 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 import { useState } from "react";
 import getBooksByName from "../../apiUtils/getBooksByName";
 import styles from "./addBookSearch.module.css";
-import BooksList from "../booksList/BooksList";
+import BooksList from "../BooksList/BooksList";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 

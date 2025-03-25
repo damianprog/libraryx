@@ -2,7 +2,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import styles from "./booksList.module.css";
 
-function BooksList({ books, showAddButton }) {
+function BooksList({ books, showingUserBooks = false }) {
   const navigate = useNavigate();
 
   const getAuthors = (book) => {
@@ -21,34 +21,44 @@ function BooksList({ books, showAddButton }) {
     navigate("/add-book", { state: book });
   };
 
+  const handleResultsRowInfoClick = (book) => {
+    if (showingUserBooks) {
+      navigate("/user-book", { state: book });
+    } else {
+    }
+  };
+
   return (
     <div className={styles.container}>
       {books.map((book) => (
         <div className={styles.resultsRow} key={book.id}>
           <div
-            style={{
-              backgroundImage: `url(${book.img})`,
-            }}
-            className={styles.resultsRowImg}
-          ></div>
-          <div className={styles.resultsRowInfo}>
+            className={styles.resultsRowInfo}
+            onClick={() => handleResultsRowInfoClick(book)}
+          >
+            <div
+              style={{
+                backgroundImage: `url(${book.img})`,
+              }}
+              className={styles.resultsRowImg}
+            ></div>
             <div className={styles.resultRowDescriptions}>
               <p className={styles.descriptionsTitle}>{book.title}</p>
               <p>{getAuthors(book)}</p>
             </div>
             <div className={styles.resultsRowDate}>{book.publishedDate}</div>
-            {showAddButton ? (
-              <div className={styles.resultsRowAdd}>
-                <AddIcon
-                  onClick={() => {
-                    onResultAdd(book);
-                  }}
-                />
-              </div>
-            ) : (
-              ""
-            )}
           </div>
+          {!showingUserBooks ? (
+            <div className={styles.resultsRowAdd}>
+              <AddIcon
+                onClick={() => {
+                  onResultAdd(book);
+                }}
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       ))}
     </div>

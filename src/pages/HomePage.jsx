@@ -1,7 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BooksList from "../components/booksList/BooksList";
+import BooksList from "../components/BooksList/BooksList";
 import AddBookModal from "../components/BasicModal/AddBookModal";
 import SearchAppBar from "../components/SearchAppBar";
 import { db, auth } from "../config/firebase";
@@ -48,7 +48,7 @@ const Home = () => {
     <>
       <SearchAppBar onSearchInputChange={onSearchInputChange} />
       <div className={styles.container}>
-        <BooksList books={booksList} showAddButton={false} />
+        <BooksList books={booksList} showingUserBooks={true} />
       </div>
       <AddBookModal />
     </>

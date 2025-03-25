@@ -111,6 +111,10 @@ const restructureApiBook = (book) => {
     series: "",
     volume: "",
     summary: "",
+    isRead: false,
+    startDate: "",
+    endDate: "",
+    notes: "",
   };
 
   return restructuredBook;

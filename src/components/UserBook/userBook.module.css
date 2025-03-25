@@ -1,0 +1,66 @@
+.userBookHeader {
+  height: 65px;
+  background: #1976d2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /* z-index: 9001; */
+}
+
+.container {
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  padding: 0 10px;
+}
+
+.headerMenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container h1 {
+  font-size: 1.25rem;
+  margin-left: 20px;
+}
+
+.icon,
+.deleteIcon {
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.deleteIcon {
+  margin-right: 20px;
+}
+
+.headerLeftSide,
+.headerRightSide {
+  display: flex;
+  align-items: center;
+}
+
+.headerRightSide a {
+  margin-left: 20px;
+}
+
+.userBookInfo {
+  margin-top: 85px;
+}
+
+.userBookInfoHeader {
+  text-align: center;
+}
+
+.userBookInfoAuthors {
+  margin: 18px 0 10px 0;
+}
+
+.userBookInfo p {
+  margin-bottom: 10px;
+}

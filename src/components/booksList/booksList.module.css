@@ -4,9 +4,8 @@
 }
 
 .resultsRow {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #bdbdbd;
 }
 
 .resultsRowImg {
@@ -16,8 +15,8 @@
 
 .resultsRowInfo {
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr;
-  border-bottom: 1px solid #bdbdbd;
+  grid-template-columns: 1fr 5fr 1fr;
+  width: 100%;
 }
 
 .resultRowDescriptions {
@@ -40,6 +39,7 @@
 .resultsRowAdd {
   color: #4caf50;
   cursor: pointer;
+  width: 40px;
 }
 
 .resultsRowDate,
