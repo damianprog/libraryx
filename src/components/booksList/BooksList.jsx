@@ -17,37 +17,41 @@ function BooksList({ books, showingUserBooks = false }) {
 
   return (
     <div className={styles.container}>
-      {books.map((book, index) => (
-        <div className={styles.resultsRow} key={`book${index}`}>
-          <div
-            className={styles.resultsRowInfo}
-            onClick={() => handleResultsRowInfoClick(book)}
-          >
+      {books.length === 0 ? (
+        <p className={styles.noBooksInfo}>Sorry, nothing found</p>
+      ) : (
+        books.map((book, index) => (
+          <div className={styles.resultsRow} key={`book${index}`}>
             <div
-              style={{
-                backgroundImage: `url(${book.img})`,
-              }}
-              className={styles.resultsRowImg}
-            ></div>
-            <div className={styles.resultRowDescriptions}>
-              <p className={styles.descriptionsTitle}>{book.title}</p>
-              <p>{book.authors}</p>
-            </div>
-            <div className={styles.resultsRowDate}>{book.publishedDate}</div>
-          </div>
-          {!showingUserBooks ? (
-            <div className={styles.resultsRowAdd}>
-              <AddIcon
-                onClick={() => {
-                  onResultAdd(book);
+              className={styles.resultsRowInfo}
+              onClick={() => handleResultsRowInfoClick(book)}
+            >
+              <div
+                style={{
+                  backgroundImage: `url(${book.img})`,
                 }}
-              />
+                className={styles.resultsRowImg}
+              ></div>
+              <div className={styles.resultRowDescriptions}>
+                <p className={styles.descriptionsTitle}>{book.title}</p>
+                <p>{book.authors}</p>
+              </div>
+              <div className={styles.resultsRowDate}>{book.publishedDate}</div>
             </div>
-          ) : (
-            ""
-          )}
-        </div>
-      ))}
+            {!showingUserBooks ? (
+              <div className={styles.resultsRowAdd}>
+                <AddIcon
+                  onClick={() => {
+                    onResultAdd(book);
+                  }}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        ))
+      )}
     </div>
   );
 }

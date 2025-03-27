@@ -8,14 +8,17 @@ import { db, auth } from "../config/firebase";
 import styles from "./homePage.module.css";
 
 const Home = () => {
-  const [booksList, setBooksList] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+  const [allBooks, setAllBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const navigate = useNavigate();
 
   const booksCollectionRef = useMemo(() => collection(db, "books"), []);
 
   const onSearchInputChange = (input) => {
-    setSearchInput(input);
+    const foundBooks = allBooks.filter((book) =>
+      book.title.toLowerCase().includes(input.toLowerCase())
+    );
+    setFilteredBooks(foundBooks);
   };
 
   const getBooksList = async () => {
@@ -26,7 +29,8 @@ const Home = () => {
         id: doc.id,
       }));
 
-      setBooksList(filteredData);
+      setAllBooks(filteredData);
+      setFilteredBooks(filteredData);
     } catch (error) {
       console.error(error);
     }
@@ -48,9 +52,9 @@ const Home = () => {
     <>
       <SearchAppBar onSearchInputChange={onSearchInputChange} />
       <div className={styles.container}>
-        <BooksList books={booksList} showingUserBooks={true} />
+        <BooksList books={filteredBooks} showingUserBooks={true} />
+        <AddBookModal />
       </div>
-      <AddBookModal />
     </>
   );
 };

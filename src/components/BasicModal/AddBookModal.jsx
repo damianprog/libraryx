@@ -23,7 +23,7 @@ function AddBookModal({ modalContent }) {
   };
 
   return (
-    <div>
+    <>
       <button
         onClick={handleOpen}
         className={styles.addButton}
@@ -58,7 +58,7 @@ function AddBookModal({ modalContent }) {
           )}
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }
 

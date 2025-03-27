@@ -67,15 +67,9 @@ const UserBook = () => {
       </header>
       <div className={styles.userBookContent}>
         <div className={styles.container}>
-          {/* <div
-            style={{
-              backgroundImage: `url(${book.img})`,
-            }}
-            className={styles.userBookImg}
-          ></div> */}
-          <img src={book.img} alt="book cover" className={styles.userBookImg} />
+          <img src={book.img} alt="book image" className={styles.userBookImg} />
           <div className={styles.userBookInfo}>
-            <h2 className={styles.userBookInfoHeader}>{book.title}</h2>
+            <h2>{book.title}</h2>
             <h3 className={styles.userBookInfoAuthors}>{book.authors}</h3>
             {book.categories ? <p>Categories: {book.categories}</p> : ""}
             {book.publishedDate ? (

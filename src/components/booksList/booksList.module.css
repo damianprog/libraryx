@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+.noBooksInfo {
+  text-align: center;
+  margin-top: 40px;
+}
+
 .resultsRow {
   display: flex;
   border-bottom: 1px solid #bdbdbd;

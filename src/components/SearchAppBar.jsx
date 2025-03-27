@@ -6,15 +6,14 @@ import { useState } from "react";
 
 const SearchAppBar = ({ onSearchInputChange }) => {
   const [isDefaultMenuShown, setIsSearchMenuShown] = useState(true);
-  const [input, setInput] = useState("");
 
   const handleInputChange = (event) => {
-    setInput(event.target.value);
-    onSearchInputChange(input);
+    onSearchInputChange(event.target.value);
   };
 
   const handleMenuSwitch = () => {
     setIsSearchMenuShown(!isDefaultMenuShown);
+    onSearchInputChange("");
   };
 
   return (

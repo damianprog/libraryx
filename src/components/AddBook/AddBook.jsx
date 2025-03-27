@@ -24,7 +24,7 @@ const AddBook = () => {
     publishedDate: "",
     categories: "",
     isbn: "",
-    img: "",
+    img: "https://thumbs.dreamstime.com/b/old-red-leather-texture-gold-decorative-frame-3780083.jpg",
     publisher: "",
     pages: "",
     series: "",

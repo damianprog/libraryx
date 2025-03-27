@@ -52,7 +52,7 @@
 
 .userBookImg {
   object-fit: contain;
-  width: 150px;
+  width: 120px;
 }
 
 .userBookContent {
@@ -69,10 +69,6 @@
 
 .userBookInfo p {
   margin-bottom: 10px;
-}
-
-.userBookInfoHeader {
-  text-align: center;
 }
 
 .userBookInfoAuthors {
