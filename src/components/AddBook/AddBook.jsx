@@ -1,11 +1,17 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+} from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styles from "./addBook.module.css";
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../../config/firebase";
 
 const AddBook = () => {
@@ -25,13 +31,35 @@ const AddBook = () => {
     volume: "",
     summary: "",
     userId: "",
+    isRead: false,
+    readStartDate: "",
+    readEndDate: "",
   });
 
   const booksCollectionRef = useMemo(() => collection(db, "books"), []);
 
+  const getAuthorsObjects = (authors) => {
+    if (typeof authors === "string") {
+      const authorsArrayOfNames = authors.split(",");
+      const authorsArray = authorsArrayOfNames.map((authorName) => {
+        return {
+          firstname: authorName.split(" ")[0],
+          lastname: authorName.substring(authorName.indexOf(" ", +1)),
+        };
+      });
+
+      return authorsArray;
+    } else {
+      return authors;
+    }
+  };
+
   useEffect(() => {
     if (state) {
-      setBook(state);
+      setBook({
+        ...state,
+        authors: getAuthorsObjects(state.authors),
+      });
     }
   }, []);
 
@@ -66,24 +94,39 @@ const AddBook = () => {
     });
   };
 
-  const handleAuthorNameChange = (event, index) => {
+  const handleIsReadChange = () => {
+    setBook({
+      ...book,
+      readEndDate: book.isRead ? "" : book.readEndDate,
+      isRead: !book.isRead,
+    });
+  };
+
+  const handleAuthorNameChange = (event, index, name) => {
     const bookCopy = { ...book };
-    bookCopy.authors[index].firstname = event.target.value;
+    bookCopy.authors[index][name] = event.target.value;
 
     setBook(bookCopy);
   };
 
-  const onSubmitBook = async () => {
+  const onSubmitBook = async (event) => {
+    event.preventDefault();
+
     const authorsNames = book.authors.map((author) => {
       return `${author.firstname} ${author.lastname}`;
     });
 
     try {
-      await addDoc(booksCollectionRef, {
-        ...book,
-        authors: authorsNames.join(", "),
-        userId: auth.currentUser.uid,
-      });
+      if (book.id) {
+        const bookDoc = doc(db, "books", book.id);
+        await updateDoc(bookDoc, book);
+      } else {
+        await addDoc(booksCollectionRef, {
+          ...book,
+          authors: authorsNames.join(","),
+          userId: auth.currentUser.uid,
+        });
+      }
 
       navigate("/");
     } catch (err) {
@@ -101,7 +144,10 @@ const AddBook = () => {
           <h1>LibraryX</h1>
         </div>
       </header>
-      <div className={styles.addBookInputs}>
+      <form
+        className={styles.addBookForm}
+        onSubmit={(event) => onSubmitBook(event)}
+      >
         <div className={styles.container}>
           <div className={styles.addBookInputsRow}>
             <TextField
@@ -110,7 +156,17 @@ const AddBook = () => {
               variant="outlined"
               value={book.title ? book.title : ""}
               onChange={(event) => handleInputChange(event, "title")}
+              required
             />
+            {/* <input
+              type="text"
+              className={styles.input}
+              // label="Title"
+              // variant="outlined"
+              value={book.title ? book.title : ""}
+              onChange={(event) => handleInputChange(event, "title")}
+              required
+            /> */}
           </div>
           {book.authors.map((author, index) => {
             return (
@@ -120,13 +176,20 @@ const AddBook = () => {
                   label="Firstname"
                   variant="outlined"
                   value={author.firstname}
-                  onChange={(event) => handleAuthorNameChange(event, index)}
+                  onChange={(event) =>
+                    handleAuthorNameChange(event, index, "firstname")
+                  }
+                  required={index === 0 ? true : false}
                 />
                 <TextField
                   className={styles.input}
                   label="Lastname"
                   variant="outlined"
                   value={author.lastname}
+                  onChange={(event) =>
+                    handleAuthorNameChange(event, index, "lastname")
+                  }
+                  required={index === 0 ? true : false}
                 />
                 {index === 0 ? (
                   <AddIcon
@@ -152,6 +215,58 @@ const AddBook = () => {
               value={book.summary ? book.summary : ""}
               onChange={(event) => handleInputChange(event, "summary")}
             />
+          </div>
+          <div className={styles.addBookInputsRow}>
+            <TextField
+              className={styles.input}
+              label="Notes"
+              variant="outlined"
+              onChange={(event) => handleInputChange(event, "notes")}
+            />
+          </div>
+          <div className={styles.addBookInputsRow}>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={book.isRead}
+                    onChange={handleIsReadChange}
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                }
+                label="Read"
+              />
+            </FormGroup>
+            <div className={styles.readDates}>
+              <div>
+                <p>Start date</p>
+                <input
+                  type="date"
+                  value={book.readStartDate}
+                  className={styles.dateInput}
+                  onChange={(event) =>
+                    handleInputChange(event, "readStartDate")
+                  }
+                />
+              </div>
+              <div>
+                {book.isRead ? (
+                  <>
+                    <p>End date</p>
+                    <input
+                      type="date"
+                      value={book.readEndDate}
+                      className={styles.dateInput}
+                      onChange={(event) =>
+                        handleInputChange(event, "readEndDate")
+                      }
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
           </div>
           <div className={styles.addBookInputsRow}>
             <TextField
@@ -215,13 +330,13 @@ const AddBook = () => {
             <Button
               className={styles.addButton}
               variant="contained"
-              onClick={onSubmitBook}
+              type="submit"
             >
               OK
             </Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

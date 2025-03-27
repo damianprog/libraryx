@@ -55,6 +55,10 @@ const UserBook = () => {
     }
   };
 
+  const onEditClick = () => {
+    navigate("/add-book", { state: book });
+  };
+
   return (
     <div className={styles.userBook}>
       <header className={styles.userBookHeader}>
@@ -68,9 +72,7 @@ const UserBook = () => {
             </div>
             <div className={styles.headerRightSide}>
               <UserBookDeleteModal onUserBookDelete={onUserBookDelete} />
-              <Link className={styles.icon} to="/">
-                <EditIcon />
-              </Link>
+              <EditIcon className={styles.editIcon} onClick={onEditClick} />
             </div>
           </div>
         </div>

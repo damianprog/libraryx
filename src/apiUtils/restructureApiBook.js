@@ -112,8 +112,8 @@ const restructureApiBook = (book) => {
     volume: "",
     summary: "",
     isRead: false,
-    startDate: "",
-    endDate: "",
+    readStartDate: "",
+    readEndDate: "",
     notes: "",
   };
 

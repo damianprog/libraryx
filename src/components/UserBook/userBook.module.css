@@ -35,8 +35,9 @@
   align-items: center;
 }
 
-.deleteIcon {
-  margin-right: 20px;
+.editIcon {
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 .headerLeftSide,
