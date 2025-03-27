@@ -6,6 +6,7 @@
 .resultsRow {
   display: flex;
   border-bottom: 1px solid #bdbdbd;
+  min-height: 70px;
 }
 
 .resultsRowImg {

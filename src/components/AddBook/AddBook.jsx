@@ -20,7 +20,7 @@ const AddBook = () => {
 
   const [book, setBook] = useState({
     title: "",
-    authors: [{ firstname: "", lastname: "" }],
+    authors: "",
     publishedDate: "",
     categories: "",
     isbn: "",
@@ -38,54 +38,11 @@ const AddBook = () => {
 
   const booksCollectionRef = useMemo(() => collection(db, "books"), []);
 
-  const getAuthorsObjects = (authors) => {
-    if (typeof authors === "string") {
-      const authorsArrayOfNames = authors.split(",");
-      const authorsArray = authorsArrayOfNames.map((authorName) => {
-        return {
-          firstname: authorName.split(" ")[0],
-          lastname: authorName.substring(authorName.indexOf(" ", +1)),
-        };
-      });
-
-      return authorsArray;
-    } else {
-      return authors;
-    }
-  };
-
   useEffect(() => {
     if (state) {
-      setBook({
-        ...state,
-        authors: getAuthorsObjects(state.authors),
-      });
+      setBook(state);
     }
   }, []);
-
-  const addAuthorRow = () => {
-    let isAnyRowEmpty = false;
-
-    book.authors.forEach((author) => {
-      if (author.firstname.trim() === "" && author.lastname.trim() === "") {
-        isAnyRowEmpty = true;
-      }
-    });
-
-    if (!isAnyRowEmpty) {
-      setBook({
-        ...book,
-        authors: [...book.authors, { firstname: "", lastname: "" }],
-      });
-    }
-  };
-
-  const removeAuthorRow = (index) => {
-    setBook({
-      ...book,
-      authors: [...book.authors.toSpliced(index, 1)],
-    });
-  };
 
   const handleInputChange = (event, inputName) => {
     setBook({
@@ -102,30 +59,28 @@ const AddBook = () => {
     });
   };
 
-  const handleAuthorNameChange = (event, index, name) => {
-    const bookCopy = { ...book };
-    bookCopy.authors[index][name] = event.target.value;
+  const updateBook = async () => {
+    const bookDoc = doc(db, "books", book.id);
+    await updateDoc(bookDoc, book);
+  };
 
-    setBook(bookCopy);
+  const createBook = async () => {
+    await addDoc(booksCollectionRef, {
+      ...book,
+      userId: auth.currentUser.uid,
+    });
   };
 
   const onSubmitBook = async (event) => {
     event.preventDefault();
 
-    const authorsNames = book.authors.map((author) => {
-      return `${author.firstname} ${author.lastname}`;
-    });
-
     try {
       if (book.id) {
-        const bookDoc = doc(db, "books", book.id);
-        await updateDoc(bookDoc, book);
+        console.log("Updating!");
+        updateBook();
       } else {
-        await addDoc(booksCollectionRef, {
-          ...book,
-          authors: authorsNames.join(","),
-          userId: auth.currentUser.uid,
-        });
+        console.log("Creating!");
+        createBook();
       }
 
       navigate("/");
@@ -158,53 +113,16 @@ const AddBook = () => {
               onChange={(event) => handleInputChange(event, "title")}
               required
             />
-            {/* <input
-              type="text"
-              className={styles.input}
-              // label="Title"
-              // variant="outlined"
-              value={book.title ? book.title : ""}
-              onChange={(event) => handleInputChange(event, "title")}
-              required
-            /> */}
           </div>
-          {book.authors.map((author, index) => {
-            return (
-              <div className={styles.addBookInputsRow} key={`author${index}`}>
-                <TextField
-                  className={styles.input}
-                  label="Firstname"
-                  variant="outlined"
-                  value={author.firstname}
-                  onChange={(event) =>
-                    handleAuthorNameChange(event, index, "firstname")
-                  }
-                  required={index === 0 ? true : false}
-                />
-                <TextField
-                  className={styles.input}
-                  label="Lastname"
-                  variant="outlined"
-                  value={author.lastname}
-                  onChange={(event) =>
-                    handleAuthorNameChange(event, index, "lastname")
-                  }
-                  required={index === 0 ? true : false}
-                />
-                {index === 0 ? (
-                  <AddIcon
-                    className={styles.authorRowIcon}
-                    onClick={addAuthorRow}
-                  />
-                ) : (
-                  <RemoveIcon
-                    className={styles.authorRowIcon}
-                    onClick={() => removeAuthorRow(index)}
-                  />
-                )}
-              </div>
-            );
-          })}
+          <div className={styles.addBookInputsRow}>
+            <TextField
+              className={styles.input}
+              label="Authors"
+              variant="outlined"
+              value={book.authors ? book.authors : ""}
+              onChange={(event) => handleInputChange(event, "authors")}
+            />
+          </div>
           <div className={styles.addBookInputsRow}>
             <TextField
               className={styles.input}
@@ -221,6 +139,7 @@ const AddBook = () => {
               className={styles.input}
               label="Notes"
               variant="outlined"
+              value={book.notes ? book.notes : ""}
               onChange={(event) => handleInputChange(event, "notes")}
             />
           </div>
@@ -287,9 +206,10 @@ const AddBook = () => {
           <div className={styles.addBookInputsRow}>
             <TextField
               className={styles.input}
-              label="Category"
+              label="Categories"
               variant="outlined"
-              onChange={(event) => handleInputChange(event, "category")}
+              value={book.categories ? book.categories : ""}
+              onChange={(event) => handleInputChange(event, "categories")}
             />
           </div>
           <div className={styles.addBookInputsRow}>

@@ -1,31 +1,8 @@
 const getAuthors = (book) => {
-  // return book.volumeInfo.authors ? book.volumeInfo.authors : [""];
+  let authors = "";
 
-  // return [
-  //   {
-  //     firstname: "Jon",
-  //     lastname: "Snow",
-  //   },
-  //   {
-  //     firstname: "Jon",
-  //     lastname: "Snow",
-  //   },
-  //   {
-  //     firstname: "Jon",
-  //     lastname: "Snow",
-  //   },
-  // ];
-
-  let authors = [];
   if (book.volumeInfo.authors) {
-    authors = book.volumeInfo.authors.map((names) => {
-      const authorNames = names.split(" ");
-
-      return {
-        firstname: authorNames[0],
-        lastname: authorNames.slice(1).join(" "),
-      };
-    });
+    authors = book.volumeInfo.authors.join(", ");
   }
 
   return authors;
@@ -99,7 +76,7 @@ const getPages = (book) => {
 
 const restructureApiBook = (book) => {
   const restructuredBook = {
-    id: book.id,
+    id: "",
     title: getTitle(book),
     authors: getAuthors(book),
     publishedDate: getPublishedDate(book),

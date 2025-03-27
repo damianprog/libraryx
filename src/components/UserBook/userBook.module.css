@@ -50,8 +50,25 @@
   margin-left: 20px;
 }
 
-.userBookInfo {
+.userBookImg {
+  object-fit: contain;
+  width: 150px;
+}
+
+.userBookContent {
   margin-top: 85px;
+}
+
+.userBookContent .container {
+  display: flex;
+}
+
+.userBookInfo {
+  margin-left: 15px;
+}
+
+.userBookInfo p {
+  margin-bottom: 10px;
 }
 
 .userBookInfoHeader {
@@ -60,8 +77,4 @@
 
 .userBookInfoAuthors {
   margin: 18px 0 10px 0;
-}
-
-.userBookInfo p {
-  margin-bottom: 10px;
 }
