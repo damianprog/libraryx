@@ -14,8 +14,6 @@ const AddBookSearchIsbn = () => {
       let foundBook = await getBookByIsbn(input);
       foundBook = foundBook ? foundBook : {};
 
-      console.log(foundBook);
-
       setBook(foundBook);
 
       navigate("/add-book", { state: foundBook });

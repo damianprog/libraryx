@@ -7,7 +7,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  /* z-index: 9001; */
+  z-index: 500;
 }
 
 .container {
@@ -50,4 +50,17 @@
 .searchMenu {
   display: flex;
   align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.drawerItems {
+  width: 200px;
+}
+
+.drawerItem {
+  text-align: center;
+  margin-top: 20px;
 }

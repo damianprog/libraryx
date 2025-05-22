@@ -17,7 +17,7 @@ const UserBook = () => {
     publishedDate: "",
     categories: "",
     isbn: "",
-    img: "",
+    img: null,
     publisher: "",
     pages: "",
     series: "",

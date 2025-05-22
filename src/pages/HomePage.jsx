@@ -1,8 +1,8 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BooksList from "../components/BooksList/BooksList";
-import AddBookModal from "../components/BasicModal/AddBookModal";
+import AddBookModal from "../components/AddBookModal/AddBookModal";
 import SearchAppBar from "../components/SearchAppBar";
 import { db, auth } from "../config/firebase";
 import styles from "./homePage.module.css";
@@ -10,9 +10,20 @@ import styles from "./homePage.module.css";
 const Home = () => {
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [loggedUserUid, setLoggedUserUid] = useState(
+    localStorage.getItem("loggedUserUidLibraryX")
+  );
   const navigate = useNavigate();
 
-  const booksCollectionRef = useMemo(() => collection(db, "books"), []);
+  // const booksCollectionRef = useMemo(
+  //   () => query(collection(db, "books"), where("userId", "==", loggedUserUid)),
+  //   []
+  // );
+
+  const booksCollectionRef = query(
+    collection(db, "books"),
+    where("userId", "==", loggedUserUid)
+  );
 
   const onSearchInputChange = (input) => {
     const foundBooks = allBooks.filter((book) =>
@@ -37,12 +48,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const localStorageLoggedUserUid = localStorage.getItem(
-      "loggedUserUidLibraryX"
-    );
-
-    if (localStorageLoggedUserUid === "null") {
-      navigate("/sign");
+    if (loggedUserUid === "null") {
+      navigate("/sign-in");
     }
 
     getBooksList();

@@ -1,29 +1,43 @@
 import { Button, Card, Divider, TextField } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { auth, googleProvider, facebookProvider } from "../../config/firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import styles from "./sign.module.css";
 import { useState } from "react";
+import { auth, googleProvider, facebookProvider } from "../../config/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [signUserError, setSignUserError] = useState(false);
   const [signUserErrorMessage, setSignUserErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const signInUser = async (event) => {
+  const signUpUser = async (event) => {
     event.preventDefault();
+
+    if (!validateFields()) {
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       setUserAndNavigate();
     } catch (error) {
-      setSignUserErrorMessage(
-        "User with provided email or password does not exist"
-      );
       console.error(error);
+    }
+  };
+
+  const validateFields = () => {
+    const areAllFieldsProvided = email && password && repeatPassword;
+    const passwordsMatch = password === repeatPassword;
+
+    if (!areAllFieldsProvided) {
+      setSignUserErrorMessage("Please fill in all fields");
+    } else if (!passwordsMatch) {
+      setSignUserErrorMessage("Password and repeat password must match");
     }
   };
 
@@ -53,8 +67,8 @@ const SignIn = () => {
   return (
     <Card className={styles.sign} variant="outlined">
       <h1>LibraryX</h1>
-      <h2>Sign In</h2>
-      <form className={styles.signForm} onSubmit={(event) => signInUser(event)}>
+      <h2>Sign Up</h2>
+      <form className={styles.signForm} onSubmit={(event) => signUpUser(event)}>
         <p
           className={`${styles.signUserError} ${
             signUserErrorMessage && styles.show
@@ -78,13 +92,22 @@ const SignIn = () => {
           sx={{ mt: 3 }}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <TextField
+          className={styles.signInput}
+          label="Repeat Password"
+          variant="outlined"
+          size="small"
+          type={"password"}
+          sx={{ mt: 3 }}
+          onChange={(e) => setRepeatPassword(e.target.value)}
+        />
         <Button
           className={styles.signButton}
           variant="contained"
           sx={{ mt: 2 }}
           type="submit"
         >
-          Sign In
+          Sign Up
         </Button>
         <Divider className={styles.divider} sx={{ mt: 2 }}>
           or
@@ -96,7 +119,7 @@ const SignIn = () => {
           onClick={signInUserWithGoogle}
         >
           <GoogleIcon />
-          &nbsp; Sign in with Google
+          &nbsp; Sign up with Google
         </Button>
         <Button
           className={styles.signButton}
@@ -105,14 +128,14 @@ const SignIn = () => {
           onClick={signInUserWithFacebook}
         >
           <FacebookIcon />
-          &nbsp; Sign in with Facebook
+          &nbsp; Sign up with Facebook
         </Button>
         <p className={styles.signUp}>
-          Don't have an account? <a href="/sign-up">Sign up</a>{" "}
+          Already have an account? <a href="/sign-in">Sign In</a>{" "}
         </p>
       </form>
     </Card>
   );
 };
 
-export default SignIn;
+export default SignUp;

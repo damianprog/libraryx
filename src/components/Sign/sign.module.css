@@ -1,8 +1,6 @@
-.signIn {
+.sign {
   width: 100vw;
-  height: 100vh;
   max-width: 500px;
-  max-height: 640px;
   padding: 40px;
 }
 
@@ -18,7 +16,7 @@ h2 {
   margin-top: 30px;
 }
 
-.inputs {
+.signForm {
   margin-top: 30px;
 }
 
@@ -28,6 +26,16 @@ h2 {
 
 .signButton {
   width: 100%;
+}
+
+.signUserError {
+  margin-bottom: 20px;
+  display: none;
+  color: red;
+}
+
+.show {
+  display: block;
 }
 
 .forgotPassword {

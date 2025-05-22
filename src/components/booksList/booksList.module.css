@@ -12,6 +12,10 @@
   display: flex;
   border-bottom: 1px solid #bdbdbd;
   min-height: 70px;
+  cursor: pointer;
+  /* z-index and position relative are for drawer to be on top of resultsRow z-index */
+  /* z-index: -1;
+  position: relative; */
 }
 
 .resultsRowImg {

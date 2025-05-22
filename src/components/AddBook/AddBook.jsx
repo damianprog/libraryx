@@ -76,10 +76,8 @@ const AddBook = () => {
 
     try {
       if (book.id) {
-        console.log("Updating!");
         updateBook();
       } else {
-        console.log("Creating!");
         createBook();
       }
 

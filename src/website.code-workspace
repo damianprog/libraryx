@@ -20,6 +20,9 @@
     },
     {
       "path": "../../../firebase"
+    },
+    {
+      "path": "../../../hackerrank"
     }
   ],
   "settings": {

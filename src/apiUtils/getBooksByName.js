@@ -6,7 +6,7 @@ const getBooksByName = async (name) => {
     const baseURL = "https://www.googleapis.com";
 
     const fetchBooksByName = await axios.get(
-      `${baseURL}/books/v1/volumes?q=${name}&key=${
+      `${baseURL}/books/v1/volumes?q=${name}&maxResults=40&key=${
         import.meta.env.VITE_GOOGLE_API_KEY
       }`
     );
