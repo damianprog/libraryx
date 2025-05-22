@@ -4,14 +4,16 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import styles from "./sign.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signUserError, setSignUserError] = useState(false);
   const [signUserErrorMessage, setSignUserErrorMessage] = useState("");
+  const [loggedUserUid, setLoggedUserUid] = useState(
+    localStorage.getItem("loggedUserUidLibraryX")
+  );
   const navigate = useNavigate();
 
   const signInUser = async (event) => {
@@ -49,6 +51,12 @@ const SignIn = () => {
     localStorage.setItem("loggedUserUidLibraryX", auth.currentUser.uid);
     navigate("/");
   };
+
+  useEffect(() => {
+    if (loggedUserUid !== "null") {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <Card className={styles.sign} variant="outlined">
