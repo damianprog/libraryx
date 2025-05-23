@@ -53,7 +53,7 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (loggedUserUid !== "null") {
+    if (loggedUserUid) {
       navigate("/");
     }
   }, []);

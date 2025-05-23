@@ -67,7 +67,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (loggedUserUid !== "null") {
+    if (loggedUserUid) {
       navigate("/");
     }
   }, []);

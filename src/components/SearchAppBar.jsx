@@ -34,7 +34,7 @@ const SearchAppBar = ({ onSearchInputChange }) => {
   const logout = async () => {
     try {
       await signOut(auth);
-      localStorage.setItem("loggedUserUidLibraryX", null);
+      localStorage.removeItem("loggedUserUidLibraryX");
       navigate("/sign-in");
     } catch (error) {
       console.error(error);

@@ -48,7 +48,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (loggedUserUid === "null") {
+    if (!loggedUserUid) {
       navigate("/sign-in");
     }
 
