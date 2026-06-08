@@ -1,34 +1,5 @@
-type ApiBook = {
-  volumeInfo: {
-    title?: string;
-    authors?: string[];
-    publishedDate?: string;
-    categories?: string[];
-    industryIdentifiers?: { identifier?: string }[];
-    imageLinks?: Record<string, string>;
-    publisher?: string;
-    pageCount?: number;
-  };
-};
-
-export type Book = {
-  id: string;
-  title: string;
-  authors: string;
-  publishedDate: string;
-  categories: string;
-  isbn: string;
-  img: string;
-  publisher: string;
-  pages: number | string;
-  series: string;
-  volume: string;
-  summary: string;
-  isRead: boolean;
-  readStartDate: string;
-  readEndDate: string;
-  notes: string;
-};
+import type { ApiBook } from "../types/ApiBook";
+import type { Book } from "../types/Book";
 
 const getAuthors = (book: ApiBook) => {
   let authors = "";
