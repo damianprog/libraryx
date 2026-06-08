@@ -1,4 +1,36 @@
-const getAuthors = (book) => {
+type ApiBook = {
+  volumeInfo: {
+    title?: string;
+    authors?: string[];
+    publishedDate?: string;
+    categories?: string[];
+    industryIdentifiers?: { identifier?: string }[];
+    imageLinks?: Record<string, string>;
+    publisher?: string;
+    pageCount?: number;
+  };
+};
+
+export type Book = {
+  id: string;
+  title: string;
+  authors: string;
+  publishedDate: string;
+  categories: string;
+  isbn: string;
+  img: string;
+  publisher: string;
+  pages: number | string;
+  series: string;
+  volume: string;
+  summary: string;
+  isRead: boolean;
+  readStartDate: string;
+  readEndDate: string;
+  notes: string;
+};
+
+const getAuthors = (book: ApiBook) => {
   let authors = "";
 
   if (book.volumeInfo.authors) {
@@ -8,7 +40,7 @@ const getAuthors = (book) => {
   return authors;
 };
 
-const getPublishedDate = (book) => {
+const getPublishedDate = (book: ApiBook) => {
   let publishedDate = "";
 
   if (book.volumeInfo.publishedDate) {
@@ -18,15 +50,15 @@ const getPublishedDate = (book) => {
   return publishedDate;
 };
 
-const getTitle = (book) => {
+const getTitle = (book: ApiBook) => {
   return book.volumeInfo.title ? book.volumeInfo.title : "";
 };
 
-const getCategories = (book) => {
+const getCategories = (book: ApiBook) => {
   return book.volumeInfo.categories ? book.volumeInfo.categories.join() : "";
 };
 
-const getIsbn = (book) => {
+const getIsbn = (book: ApiBook) => {
   let isbn = "";
 
   if (book.volumeInfo.industryIdentifiers) {
@@ -46,11 +78,11 @@ const getIsbn = (book) => {
   return isbn;
 };
 
-const getImg = (book) => {
+const getImg = (book: ApiBook) => {
   let img = "";
 
   if (book.volumeInfo.imageLinks) {
-    for (const [key, value] of Object.entries(book.volumeInfo.imageLinks)) {
+    for (const value of Object.values(book.volumeInfo.imageLinks)) {
       if (value) {
         img = value;
         break;
@@ -66,15 +98,15 @@ const getImg = (book) => {
   return img;
 };
 
-const getPublisher = (book) => {
+const getPublisher = (book: ApiBook) => {
   return book.volumeInfo.publisher ? book.volumeInfo.publisher : "";
 };
 
-const getPages = (book) => {
+const getPages = (book: ApiBook) => {
   return book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "";
 };
 
-const restructureApiBook = (book) => {
+const restructureApiBook = (book: ApiBook): Book => {
   const restructuredBook = {
     id: "",
     title: getTitle(book),
