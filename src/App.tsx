@@ -9,17 +9,8 @@ import UserBookPage from "./pages/UserBookPage";
 function App() {
   const theme = createTheme({
     palette: {
-      blue: {
-        main: "#1c76d2",
-      },
       amber: {
         main: "#F57F17",
-      },
-      white: {
-        main: "#FFFFFF",
-      },
-      grey: {
-        main: "#d7d7d7",
       },
     },
   });
