@@ -1,4 +1,4 @@
-import SignIn from "../components/sign/SignIn";
+import SignIn from "../components/Sign/SignIn";
 import styles from "./signPage.module.css";
 
 const SignInPage = () => {
