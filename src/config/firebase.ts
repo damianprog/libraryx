@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, type FirebaseOptions } from "firebase/app";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-const firebaseConfig = {
+const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCx6AT27Klt5Yg4HJGP_2rT_e1vmUfbihk",
   authDomain: "libraryx-61c82.firebaseapp.com",
   projectId: "libraryx-61c82",
