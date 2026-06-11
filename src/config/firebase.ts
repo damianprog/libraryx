@@ -4,7 +4,11 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  type FirestoreDataConverter,
+} from "firebase/firestore";
+import type { UserBook } from "../types/UserBook";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCx6AT27Klt5Yg4HJGP_2rT_e1vmUfbihk",
@@ -22,3 +26,14 @@ export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();
 
 export const db = getFirestore(app);
+
+export const userBookConverter: FirestoreDataConverter<UserBook> = {
+  toFirestore: (book) => {
+    const { id, ...rest } = book;
+    return rest;
+  },
+  fromFirestore: (snapshot, options) => {
+    const data = snapshot.data(options) as Omit<UserBook, "id">;
+    return { ...data, id: snapshot.id };
+  },
+};
