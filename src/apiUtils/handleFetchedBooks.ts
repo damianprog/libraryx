@@ -3,7 +3,7 @@ import type { Book } from "../types/Book";
 import type { FetchedBooksResponse } from "../types/FetchedBooksResponse";
 import restructureApiBook from "./restructureApiBook";
 
-const getValidBooks = (fetchedBooks: FetchedBooksResponse) => {
+const getValidBooks = (fetchedBooks: FetchedBooksResponse): ApiBook[] => {
   let validBooks: ApiBook[] = [];
 
   if (fetchedBooks.data.items) {
@@ -15,7 +15,7 @@ const getValidBooks = (fetchedBooks: FetchedBooksResponse) => {
   return validBooks;
 };
 
-const getRestructuredBooks = (fetchedBooks: ApiBook[]) => {
+const getRestructuredBooks = (fetchedBooks: ApiBook[]): Book[] => {
   const restructuredBooks = fetchedBooks.map((book) => {
     return restructureApiBook(book);
   });

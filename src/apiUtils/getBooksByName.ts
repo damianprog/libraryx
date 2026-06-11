@@ -16,7 +16,7 @@ const getBooksByName = async (name: string): Promise<Book[] | undefined> => {
     const books = handleFetchedBooks(fetchBooksByName);
 
     return books;
-  } catch (error) {
+  } catch (error: unknown) {
     console.log(error);
   }
 };

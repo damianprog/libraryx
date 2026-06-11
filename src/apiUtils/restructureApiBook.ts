@@ -1,7 +1,7 @@
 import type { ApiBook } from "../types/ApiBook";
 import type { Book } from "../types/Book";
 
-const getAuthors = (book: ApiBook) => {
+const getAuthors = (book: ApiBook): string => {
   let authors = "";
 
   if (book.volumeInfo.authors) {
@@ -11,7 +11,7 @@ const getAuthors = (book: ApiBook) => {
   return authors;
 };
 
-const getPublishedDate = (book: ApiBook) => {
+const getPublishedDate = (book: ApiBook): string => {
   let publishedDate = "";
 
   if (book.volumeInfo.publishedDate) {
@@ -21,15 +21,15 @@ const getPublishedDate = (book: ApiBook) => {
   return publishedDate;
 };
 
-const getTitle = (book: ApiBook) => {
+const getTitle = (book: ApiBook): string => {
   return book.volumeInfo.title ? book.volumeInfo.title : "";
 };
 
-const getCategories = (book: ApiBook) => {
+const getCategories = (book: ApiBook): string => {
   return book.volumeInfo.categories ? book.volumeInfo.categories.join() : "";
 };
 
-const getIsbn = (book: ApiBook) => {
+const getIsbn = (book: ApiBook): string => {
   let isbn = "";
 
   if (book.volumeInfo.industryIdentifiers) {
@@ -49,7 +49,7 @@ const getIsbn = (book: ApiBook) => {
   return isbn;
 };
 
-const getImg = (book: ApiBook) => {
+const getImg = (book: ApiBook): string => {
   let img = "";
 
   if (book.volumeInfo.imageLinks) {
@@ -69,11 +69,11 @@ const getImg = (book: ApiBook) => {
   return img;
 };
 
-const getPublisher = (book: ApiBook) => {
+const getPublisher = (book: ApiBook): string => {
   return book.volumeInfo.publisher ? book.volumeInfo.publisher : "";
 };
 
-const getPages = (book: ApiBook) => {
+const getPages = (book: ApiBook): number | string => {
   return book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "";
 };
 

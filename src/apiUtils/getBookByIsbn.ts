@@ -16,7 +16,7 @@ const getBookByIsbn = async (isbn: string): Promise<Book | undefined> => {
     const book = handleFetchedBooks(fetchBookByIsbn)[0];
 
     return book;
-  } catch (error) {
+  } catch (error: unknown) {
     console.log(error);
   }
 };
