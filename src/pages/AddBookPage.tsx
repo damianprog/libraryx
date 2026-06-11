@@ -1,6 +1,7 @@
+import type { JSX } from "react";
 import AddBook from "../components/AddBook/AddBook";
 
-const AddBookPage = () => {
+const AddBookPage = (): JSX.Element => {
   return <AddBook />;
 };
 
