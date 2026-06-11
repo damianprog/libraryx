@@ -3,8 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useState } from "react";
-import { style } from "@mui/system";
+import { useState, type ChangeEvent, type JSX } from "react";
 import {
   Drawer,
   List,
@@ -17,26 +16,30 @@ import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 
-const SearchAppBar = ({ onSearchInputChange }) => {
-  const [isDefaultMenuShown, setIsSearchMenuShown] = useState(true);
+type SearchAppBarProps = {
+  onSearchInputChange: (value: string) => void;
+};
+
+const SearchAppBar = ({ onSearchInputChange }: SearchAppBarProps): JSX.Element => {
+  const [isDefaultMenuShown, setIsDefaultMenuShown] = useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onSearchInputChange(event.target.value);
   };
 
-  const handleMenuSwitch = () => {
-    setIsSearchMenuShown(!isDefaultMenuShown);
+  const handleMenuSwitch = (): void => {
+    setIsDefaultMenuShown(!isDefaultMenuShown);
     onSearchInputChange("");
   };
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     try {
       await signOut(auth);
       localStorage.removeItem("loggedUserUidLibraryX");
       navigate("/sign-in");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error);
     }
   };
