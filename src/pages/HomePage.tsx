@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
-import BooksList from "../components/booksList/BooksList";
+import BooksList from "../components/BooksList/BooksList";
 import AddBookModal from "../components/AddBookModal/AddBookModal";
 import SearchAppBar from "../components/SearchAppBar";
 import { db, auth, userBookConverter } from "../config/firebase";
