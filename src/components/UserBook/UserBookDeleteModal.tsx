@@ -1,16 +1,20 @@
-import styles from "./userBookDeleteModal.module.css";
+import { useState, type JSX } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Modal } from "@mui/material";
-import { useState } from "react";
+import styles from "./userBookDeleteModal.module.css";
 
-const UserBookDeleteModal = ({ onUserBookDelete }) => {
+type UserBookDeleteModalProps = {
+  onUserBookDelete: () => void;
+};
+
+const UserBookDeleteModal = ({
+  onUserBookDelete,
+}: UserBookDeleteModalProps): JSX.Element => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = (_, reason) => {
-    // if (reason !== "backdropClick") {
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => {
     setOpen(false);
-    // }
   };
 
   return (
