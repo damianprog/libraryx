@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import BooksList from "../components/booksList/BooksList";
 import AddBookModal from "../components/AddBookModal/AddBookModal";
@@ -8,7 +8,7 @@ import { db, auth, userBookConverter } from "../config/firebase";
 import type { UserBook } from "../types/UserBook";
 import styles from "./homePage.module.css";
 
-const Home = () => {
+const Home = (): JSX.Element => {
   const [allBooks, setAllBooks] = useState<UserBook[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<UserBook[]>([]);
   const loggedUserUid = localStorage.getItem("loggedUserUidLibraryX");
@@ -19,21 +19,21 @@ const Home = () => {
     where("userId", "==", loggedUserUid)
   );
 
-  const onSearchInputChange = (input: string) => {
-    const foundBooks = allBooks.filter((book) =>
+  const onSearchInputChange = (input: string): void => {
+    const foundBooks: UserBook[] = allBooks.filter((book) =>
       book.title.toLowerCase().includes(input.toLowerCase())
     );
     setFilteredBooks(foundBooks);
   };
 
-  const getBooksList = async () => {
+  const getBooksList = async (): Promise<void> => {
     try {
       const data = await getDocs(booksCollectionRef);
-      const books = data.docs.map((doc) => doc.data());
+      const books: UserBook[] = data.docs.map((doc) => doc.data());
 
       setAllBooks(books);
       setFilteredBooks(books);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error);
     }
   };
