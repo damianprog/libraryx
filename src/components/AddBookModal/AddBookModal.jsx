@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Tab, Tabs } from "@mui/material";
 import AddBookSearchIsbn from "../AddBook/AddBookSearchIsbn";
 
-function AddBookModal({ modalContent }) {
+function AddBookModal() {
   const [open, setOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState("isbn");
   const handleOpen = () => setOpen(true);
