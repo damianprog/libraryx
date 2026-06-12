@@ -38,9 +38,13 @@ const SignUp = () => {
 
     if (!areAllFieldsProvided) {
       setSignUserErrorMessage("Please fill in all fields");
-    } else if (!passwordsMatch) {
-      setSignUserErrorMessage("Password and repeat password must match");
+      return false;
     }
+    if (!passwordsMatch) {
+      setSignUserErrorMessage("Password and repeat password must match");
+      return false;
+    }
+    return true;
   };
 
   const signInUserWithGoogle = async () => {
