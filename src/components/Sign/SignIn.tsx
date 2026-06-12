@@ -3,6 +3,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import type { UserCredential } from "firebase/auth";
 import styles from "./sign.module.css";
 import { useEffect, useState } from "react";
 import type { ChangeEvent, FormEvent, JSX } from "react";
@@ -24,7 +25,11 @@ const SignIn = (): JSX.Element => {
   ): Promise<void> => {
     event.preventDefault();
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const { user }: UserCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       setUserAndNavigate(user.uid);
     } catch (error: unknown) {
       setSignUserErrorMessage(
@@ -36,7 +41,10 @@ const SignIn = (): JSX.Element => {
 
   const signInUserWithGoogle = async (): Promise<void> => {
     try {
-      const { user } = await signInWithPopup(auth, googleProvider);
+      const { user }: UserCredential = await signInWithPopup(
+        auth,
+        googleProvider
+      );
       setUserAndNavigate(user.uid);
     } catch (error: unknown) {
       console.error(error);
@@ -45,7 +53,10 @@ const SignIn = (): JSX.Element => {
 
   const signInUserWithFacebook = async (): Promise<void> => {
     try {
-      const { user } = await signInWithPopup(auth, facebookProvider);
+      const { user }: UserCredential = await signInWithPopup(
+        auth,
+        facebookProvider
+      );
       setUserAndNavigate(user.uid);
     } catch (error: unknown) {
       console.error(error);
