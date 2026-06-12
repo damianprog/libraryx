@@ -1,51 +1,42 @@
+import { useEffect, useState, type JSX } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import styles from "./userBook.module.css";
+import { deleteDoc, doc } from "firebase/firestore";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditIcon from "@mui/icons-material/Edit";
-import { useEffect, useState } from "react";
 import UserBookDeleteModal from "./UserBookDeleteModal";
 import { db } from "../../config/firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import type { UserBook as UserBookType } from "../../types/UserBook";
+import styles from "./userBook.module.css";
 
-const UserBook = () => {
+const UserBook = (): JSX.Element | null => {
   const navigate = useNavigate();
   const { state } = useLocation();
-
-  const [book, setBook] = useState({
-    title: "",
-    authors: "",
-    publishedDate: "",
-    categories: "",
-    isbn: "",
-    img: null,
-    publisher: "",
-    pages: "",
-    series: "",
-    volume: "",
-    summary: "",
-    userId: "",
-  });
+  const [book, setBook] = useState<UserBookType | null>(null);
 
   useEffect(() => {
-    if (state) {
-      setBook(state);
+    if (!state) {
+      navigate("/");
+      return;
     }
+    setBook(state as UserBookType);
   }, []);
 
-  const onUserBookDelete = async () => {
+  const onUserBookDelete = async (): Promise<void> => {
+    if (!book) return;
     try {
       const bookDoc = doc(db, "books", book.id);
       await deleteDoc(bookDoc);
-
       navigate("/");
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
     }
   };
 
-  const onEditClick = () => {
+  const onEditClick = (): void => {
     navigate("/add-book", { state: book });
   };
+
+  if (!book) return null;
 
   return (
     <div className={styles.userBook}>
