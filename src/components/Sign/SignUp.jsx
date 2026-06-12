@@ -28,6 +28,19 @@ const SignUp = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       setUserAndNavigate();
     } catch (error) {
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setSignUserErrorMessage("An account with this email already exists");
+          break;
+        case "auth/invalid-email":
+          setSignUserErrorMessage("Please enter a valid email address");
+          break;
+        case "auth/weak-password":
+          setSignUserErrorMessage("Password must be at least 6 characters");
+          break;
+        default:
+          setSignUserErrorMessage("Could not create account. Please try again");
+      }
       console.error(error);
     }
   };
