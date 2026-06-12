@@ -7,11 +7,8 @@ import type { ChangeEvent, FormEvent, JSX } from "react";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import type { UserCredential } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
 import { useNavigate } from "react-router-dom";
-
-const getFirebaseErrorCode = (error: unknown): string =>
-  error instanceof FirebaseError ? error.code : "";
+import getFirebaseErrorCode from "../../firebaseUtils/getFirebaseErrorCode";
 
 const SignUp = (): JSX.Element => {
   const [email, setEmail] = useState("");
