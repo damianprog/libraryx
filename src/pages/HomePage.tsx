@@ -50,7 +50,7 @@ const Home = (): JSX.Element => {
     <>
       <SearchAppBar onSearchInputChange={onSearchInputChange} />
       <div className={styles.container}>
-        <BooksList books={filteredBooks} showingUserBooks={true} />
+        <BooksList<UserBook> books={filteredBooks} showingUserBooks={true} />
         <AddBookModal />
       </div>
     </>

@@ -4,21 +4,24 @@ import { useNavigate } from "react-router-dom";
 import type { Book } from "../../types/Book";
 import styles from "./booksList.module.css";
 
-type BooksListProps = {
-  books: Book[];
+type BooksListProps<T extends Book> = {
+  books: T[];
   showingUserBooks?: boolean;
 };
 
-function BooksList({ books, showingUserBooks = false }: BooksListProps): JSX.Element {
+function BooksList<T extends Book>({
+  books,
+  showingUserBooks = false,
+}: BooksListProps<T>): JSX.Element {
   const navigate = useNavigate();
 
-  const handleResultsRowInfoClick = (book: Book): void => {
+  const handleResultsRowInfoClick = (book: T): void => {
     if (showingUserBooks) {
       navigate("/user-book", { state: book });
     }
   };
 
-  const onResultAdd = (book: Book): void => {
+  const onResultAdd = (book: T): void => {
     navigate("/add-book", { state: book });
   };
 
