@@ -11,8 +11,4 @@ export type Book = {
   series: string;
   volume: string;
   summary: string;
-  isRead: boolean;
-  readStartDate: string;
-  readEndDate: string;
-  notes: string;
 };

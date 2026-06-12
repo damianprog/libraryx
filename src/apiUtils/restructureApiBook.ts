@@ -78,7 +78,7 @@ const getPages = (book: ApiBook): number | string => {
 };
 
 const restructureApiBook = (book: ApiBook): Book => {
-  const restructuredBook = {
+  const restructuredBook: Book = {
     id: "",
     title: getTitle(book),
     authors: getAuthors(book),
@@ -91,10 +91,6 @@ const restructureApiBook = (book: ApiBook): Book => {
     series: "",
     volume: "",
     summary: "",
-    isRead: false,
-    readStartDate: "",
-    readEndDate: "",
-    notes: "",
   };
 
   return restructuredBook;
