@@ -3,21 +3,31 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import styles from "./sign.module.css";
 import { useEffect, useState } from "react";
+import type { ChangeEvent, FormEvent, JSX } from "react";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import type { UserCredential } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const getFirebaseErrorCode = (error: unknown): string =>
+  error instanceof FirebaseError ? error.code : "";
+
+const SignUp = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [signUserErrorMessage, setSignUserErrorMessage] = useState("");
-  const [loggedUserUid, setLoggedUserUid] = useState(
-    localStorage.getItem("loggedUserUidLibraryX")
-  );
   const navigate = useNavigate();
 
-  const signUpUser = async (event) => {
+  const setUserAndNavigate = (uid: string): void => {
+    localStorage.setItem("loggedUserUidLibraryX", uid);
+    navigate("/");
+  };
+
+  const signUpUser = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
 
     if (!validateFields()) {
@@ -25,10 +35,14 @@ const SignUp = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      setUserAndNavigate();
-    } catch (error) {
-      switch (error.code) {
+      const { user }: UserCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUserAndNavigate(user.uid);
+    } catch (error: unknown) {
+      switch (getFirebaseErrorCode(error)) {
         case "auth/email-already-in-use":
           setSignUserErrorMessage("An account with this email already exists");
           break;
@@ -45,7 +59,7 @@ const SignUp = () => {
     }
   };
 
-  const validateFields = () => {
+  const validateFields = (): boolean => {
     const areAllFieldsProvided = email && password && repeatPassword;
     const passwordsMatch = password === repeatPassword;
 
@@ -60,31 +74,32 @@ const SignUp = () => {
     return true;
   };
 
-  const signInUserWithGoogle = async () => {
+  const signInUserWithGoogle = async (): Promise<void> => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      setUserAndNavigate();
-    } catch (error) {
+      const { user }: UserCredential = await signInWithPopup(
+        auth,
+        googleProvider
+      );
+      setUserAndNavigate(user.uid);
+    } catch (error: unknown) {
       console.error(error);
     }
   };
 
-  const signInUserWithFacebook = async () => {
+  const signInUserWithFacebook = async (): Promise<void> => {
     try {
-      await signInWithPopup(auth, facebookProvider);
-      setUserAndNavigate();
-    } catch (error) {
+      const { user }: UserCredential = await signInWithPopup(
+        auth,
+        facebookProvider
+      );
+      setUserAndNavigate(user.uid);
+    } catch (error: unknown) {
       console.error(error);
     }
-  };
-
-  const setUserAndNavigate = () => {
-    localStorage.setItem("loggedUserUidLibraryX", auth.currentUser.uid);
-    navigate("/");
   };
 
   useEffect(() => {
-    if (loggedUserUid) {
+    if (localStorage.getItem("loggedUserUidLibraryX")) {
       navigate("/");
     }
   }, []);
@@ -106,7 +121,9 @@ const SignUp = () => {
           label="Email"
           variant="outlined"
           size="small"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
         <TextField
           className={styles.signInput}
@@ -115,7 +132,9 @@ const SignUp = () => {
           size="small"
           type={"password"}
           sx={{ mt: 3 }}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         />
         <TextField
           className={styles.signInput}
@@ -124,7 +143,9 @@ const SignUp = () => {
           size="small"
           type={"password"}
           sx={{ mt: 3 }}
-          onChange={(e) => setRepeatPassword(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setRepeatPassword(e.target.value)
+          }
         />
         <Button
           className={styles.signButton}
