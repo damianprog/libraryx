@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import getFirebaseErrorCode from "../../firebaseUtils/getFirebaseErrorCode";
+import handleProviderSignInError from "../../firebaseUtils/handleProviderSignInError";
 
 const SignIn = (): JSX.Element => {
   const [email, setEmail] = useState("");
@@ -60,29 +61,7 @@ const SignIn = (): JSX.Element => {
       );
       setUserAndNavigate(user.uid);
     } catch (error: unknown) {
-      switch (getFirebaseErrorCode(error)) {
-        case "auth/popup-closed-by-user":
-        case "auth/cancelled-popup-request":
-          return;
-        case "auth/popup-blocked":
-          setSignUserErrorMessage(
-            "Popup was blocked. Please allow popups for this site"
-          );
-          break;
-        case "auth/account-exists-with-different-credential":
-          setSignUserErrorMessage(
-            "An account with this email already exists with a different sign-in method"
-          );
-          break;
-        case "auth/network-request-failed":
-          setSignUserErrorMessage(
-            "Network error. Please check your connection"
-          );
-          break;
-        default:
-          setSignUserErrorMessage("Could not sign in. Please try again");
-      }
-      console.error(error);
+      handleProviderSignInError(error, setSignUserErrorMessage);
     }
   };
 
@@ -94,29 +73,7 @@ const SignIn = (): JSX.Element => {
       );
       setUserAndNavigate(user.uid);
     } catch (error: unknown) {
-      switch (getFirebaseErrorCode(error)) {
-        case "auth/popup-closed-by-user":
-        case "auth/cancelled-popup-request":
-          return;
-        case "auth/popup-blocked":
-          setSignUserErrorMessage(
-            "Popup was blocked. Please allow popups for this site"
-          );
-          break;
-        case "auth/account-exists-with-different-credential":
-          setSignUserErrorMessage(
-            "An account with this email already exists with a different sign-in method"
-          );
-          break;
-        case "auth/network-request-failed":
-          setSignUserErrorMessage(
-            "Network error. Please check your connection"
-          );
-          break;
-        default:
-          setSignUserErrorMessage("Could not sign in. Please try again");
-      }
-      console.error(error);
+      handleProviderSignInError(error, setSignUserErrorMessage);
     }
   };
 
