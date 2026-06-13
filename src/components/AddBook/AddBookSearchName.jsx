@@ -13,9 +13,7 @@ function AddBookSearchName() {
 
   const handleOpen = () => setOpen(true);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   function handleInputChange(event) {
     setInput(event.target.value);
@@ -69,9 +67,9 @@ function AddBookSearchName() {
               value={input}
               onChange={handleInputChange}
             />
-            <button onClick={getBooks} variant="text">
+            <Button onClick={getBooks} variant="text">
               OK
-            </button>
+            </Button>
           </div>
           <BooksList books={foundBooks} />
         </Box>
