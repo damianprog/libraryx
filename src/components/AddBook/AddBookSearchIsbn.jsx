@@ -6,15 +6,20 @@ import styles from "./addBookSearch.module.css";
 
 const AddBookSearchIsbn = () => {
   const [input, setInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   async function getBooks() {
-    if (input !== "") {
-      let foundBook = await getBookByIsbn(input);
-      foundBook = foundBook ? foundBook : {};
-
-      navigate("/add-book", { state: foundBook });
+    if (input === "") {
+      return;
     }
+    setErrorMessage("");
+    const foundBook = await getBookByIsbn(input);
+    if (!foundBook) {
+      setErrorMessage("No book found with this ISBN");
+      return;
+    }
+    navigate("/add-book", { state: foundBook });
   }
 
   return (
@@ -26,6 +31,7 @@ const AddBookSearchIsbn = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />
       <div className={styles.buttons}>
         <Button onClick={getBooks} variant="text">

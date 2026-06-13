@@ -2,6 +2,11 @@
   width: 100%;
 }
 
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
 .buttons {
   margin-top: 10px;
   display: flex;
