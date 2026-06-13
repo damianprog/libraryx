@@ -20,12 +20,7 @@ function AddBookModal() {
 
   return (
     <>
-      <button
-        onClick={handleOpen}
-        className={styles.addButton}
-        variant="contained"
-        color="amber"
-      >
+      <button onClick={handleOpen} className={styles.addButton}>
         <AddIcon />
       </button>
       <Modal
