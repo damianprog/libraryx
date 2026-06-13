@@ -1,26 +1,28 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
+import type { ChangeEvent, JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import getBookByIsbn from "../../apiUtils/getBookByIsbn";
+import type { Book } from "../../types/Book";
 import styles from "./addBookSearch.module.css";
 
-const AddBookSearchIsbn = () => {
+const AddBookSearchIsbn = (): JSX.Element => {
   const [input, setInput] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  async function getBooks() {
+  const getBooks = async (): Promise<void> => {
     if (input === "") {
       return;
     }
     setErrorMessage("");
-    const foundBook = await getBookByIsbn(input);
+    const foundBook: Book | undefined = await getBookByIsbn(input);
     if (!foundBook) {
       setErrorMessage("No book found with this ISBN");
       return;
     }
     navigate("/add-book", { state: foundBook });
-  }
+  };
 
   return (
     <>
@@ -29,7 +31,9 @@ const AddBookSearchIsbn = () => {
         label="ISBN Number"
         variant="outlined"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setInput(e.target.value)
+        }
       />
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />
