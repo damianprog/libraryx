@@ -10,6 +10,7 @@ function AddBookSearchName() {
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const [foundBooks, setFoundBooks] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleOpen = () => setOpen(true);
 
@@ -20,14 +21,17 @@ function AddBookSearchName() {
   }
 
   async function getBooks() {
-    if (input !== "") {
-      let foundBooks = await getBooksByName(input);
-      foundBooks = foundBooks ? foundBooks : [];
-
-      setFoundBooks(foundBooks);
-
-      handleOpen();
+    if (input === "") {
+      return;
     }
+    setErrorMessage("");
+    const foundBooks = await getBooksByName(input);
+    if (!foundBooks || foundBooks.length === 0) {
+      setErrorMessage("No books found");
+      return;
+    }
+    setFoundBooks(foundBooks);
+    handleOpen();
   }
 
   return (
@@ -39,6 +43,7 @@ function AddBookSearchName() {
         value={input}
         onChange={handleInputChange}
       />
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />
       <div className={styles.buttons}>
         <Button onClick={getBooks} variant="text">
@@ -71,6 +76,7 @@ function AddBookSearchName() {
               OK
             </Button>
           </div>
+          {errorMessage && <p className={styles.error}>{errorMessage}</p>}
           <BooksList books={foundBooks} />
         </Box>
       </Modal>
