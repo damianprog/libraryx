@@ -1,22 +1,20 @@
-import Box from "@mui/material/Box";
-import AddIcon from "@mui/icons-material/Add";
-import Modal from "@mui/material/Modal";
-import styles from "./addBookModal.module.css";
-import AddBookSearchName from "../AddBook/AddBookSearchName";
-import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import type { JSX } from "react";
 import { Tab, Tabs } from "@mui/material";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import AddBookSearchName from "../AddBook/AddBookSearchName";
 import AddBookSearchIsbn from "../AddBook/AddBookSearchIsbn";
+import styles from "./addBookModal.module.css";
 
-function AddBookModal() {
+const AddBookModal = (): JSX.Element => {
   const [open, setOpen] = useState(false);
-  const [currentTab, setCurrentTab] = useState("isbn");
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [currentTab, setCurrentTab] = useState<"isbn" | "keyword">("isbn");
 
-  const handleTabChange = (event, tab) => {
-    setCurrentTab(tab);
-  };
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
 
   return (
     <>
@@ -37,20 +35,16 @@ function AddBookModal() {
           <Tabs
             className={styles.tabs}
             value={currentTab}
-            onChange={handleTabChange}
+            onChange={(_, tab: "isbn" | "keyword") => setCurrentTab(tab)}
           >
             <Tab value="isbn" label="ISBN SEARCH" />
             <Tab value="keyword" label="KEYWORD SEARCH" />
           </Tabs>
-          {currentTab === "isbn" ? (
-            <AddBookSearchIsbn />
-          ) : (
-            <AddBookSearchName />
-          )}
+          {currentTab === "isbn" ? <AddBookSearchIsbn /> : <AddBookSearchName />}
         </Box>
       </Modal>
     </>
   );
-}
+};
 
 export default AddBookModal;
