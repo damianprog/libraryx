@@ -1,38 +1,39 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import { useState } from "react";
-import getBooksByName from "../../apiUtils/getBooksByName";
-import styles from "./addBookSearch.module.css";
-import BooksList from "../BooksList/BooksList";
-import CloseIcon from "@mui/icons-material/Close";
+import type { ChangeEvent, JSX } from "react";
 import { Link } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+import getBooksByName from "../../apiUtils/getBooksByName";
+import BooksList from "../BooksList/BooksList";
+import type { Book } from "../../types/Book";
+import styles from "./addBookSearch.module.css";
 
-function AddBookSearchName() {
+const AddBookSearchName = (): JSX.Element => {
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
-  const [foundBooks, setFoundBooks] = useState([]);
+  const [foundBooks, setFoundBooks] = useState<Book[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (): void => setOpen(true);
+  const handleClose = (): void => setOpen(false);
 
-  const handleClose = () => setOpen(false);
-
-  function handleInputChange(event) {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInput(event.target.value);
-  }
+  };
 
-  async function getBooks() {
+  const getBooks = async (): Promise<void> => {
     if (input === "") {
       return;
     }
     setErrorMessage("");
-    const foundBooks = await getBooksByName(input);
+    const foundBooks: Book[] | undefined = await getBooksByName(input);
     if (!foundBooks || foundBooks.length === 0) {
       setErrorMessage("No books found");
       return;
     }
     setFoundBooks(foundBooks);
     handleOpen();
-  }
+  };
 
   return (
     <>
@@ -77,11 +78,11 @@ function AddBookSearchName() {
             </Button>
           </div>
           {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-          <BooksList books={foundBooks} />
+          <BooksList<Book> books={foundBooks} />
         </Box>
       </Modal>
     </>
   );
-}
+};
 
 export default AddBookSearchName;
