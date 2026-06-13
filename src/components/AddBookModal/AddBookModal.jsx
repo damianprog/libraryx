@@ -12,11 +12,7 @@ function AddBookModal() {
   const [open, setOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState("isbn");
   const handleOpen = () => setOpen(true);
-  const handleClose = (_, reason) => {
-    // if (reason !== "backdropClick") {
-    setOpen(false);
-    // }
-  };
+  const handleClose = () => setOpen(false);
 
   const handleTabChange = (event, tab) => {
     setCurrentTab(tab);
