@@ -13,10 +13,8 @@ function AddBookSearchName() {
 
   const handleOpen = () => setOpen(true);
 
-  const handleClose = (_, reason) => {
-    // if (reason !== "backdropClick") {
+  const handleClose = () => {
     setOpen(false);
-    // }
   };
 
   function handleInputChange(event) {
