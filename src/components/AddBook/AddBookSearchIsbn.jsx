@@ -6,15 +6,12 @@ import styles from "./addBookSearch.module.css";
 
 const AddBookSearchIsbn = () => {
   const [input, setInput] = useState("");
-  const [book, setBook] = useState([]);
   const navigate = useNavigate();
 
   async function getBooks() {
     if (input !== "") {
       let foundBook = await getBookByIsbn(input);
       foundBook = foundBook ? foundBook : {};
-
-      setBook(foundBook);
 
       navigate("/add-book", { state: foundBook });
     }
