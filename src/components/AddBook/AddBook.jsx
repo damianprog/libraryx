@@ -76,9 +76,9 @@ const AddBook = () => {
 
     try {
       if (book.id) {
-        updateBook();
+        await updateBook();
       } else {
-        createBook();
+        await createBook();
       }
 
       navigate("/");
