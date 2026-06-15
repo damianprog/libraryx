@@ -30,7 +30,7 @@ const AddBook = () => {
     series: "",
     volume: "",
     summary: "",
-    userId: "",
+    notes: "",
     isRead: false,
     readStartDate: "",
     readEndDate: "",
