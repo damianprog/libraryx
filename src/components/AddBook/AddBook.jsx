@@ -40,7 +40,7 @@ const AddBook = () => {
 
   useEffect(() => {
     if (state) {
-      setBook(state);
+      setBook((prev) => ({ ...prev, ...state }));
     }
   }, []);
 
