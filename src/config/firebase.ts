@@ -34,6 +34,6 @@ export const userBookConverter: FirestoreDataConverter<UserBook> = {
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options) as Omit<UserBook, "id">;
-    return { ...data, id: snapshot.id };
+    return { ...data, id: snapshot.id, createdAt: data.createdAt ?? null };
   },
 };

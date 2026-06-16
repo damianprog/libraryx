@@ -14,16 +14,19 @@ import {
   type JSX,
 } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import RemoveIcon from "@mui/icons-material/Remove";
 import styles from "./addBook.module.css";
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db, auth } from "../../config/firebase";
-import type { Book } from "../../types/Book";
 import type { UserBook } from "../../types/UserBook";
 
-type AddBookFormState = Omit<UserBook, "id" | "userId"> &
+type AddBookFormState = Omit<UserBook, "id" | "userId" | "createdAt"> &
   Partial<Pick<UserBook, "id" | "userId">>;
 
 const AddBook = (): JSX.Element => {
@@ -52,7 +55,8 @@ const AddBook = (): JSX.Element => {
 
   useEffect(() => {
     if (state) {
-      setBook((prev) => ({ ...prev, ...(state as Book | UserBook) }));
+      const { createdAt, ...rest } = state as UserBook;
+      setBook((prev) => ({ ...prev, ...rest }));
     }
   }, []);
 
@@ -85,6 +89,7 @@ const AddBook = (): JSX.Element => {
     await addDoc(booksCollectionRef, {
       ...book,
       userId: auth.currentUser.uid,
+      createdAt: serverTimestamp(),
     });
   };
 

@@ -31,6 +31,13 @@ const Home = (): JSX.Element => {
       const data = await getDocs(booksCollectionRef);
       const books: UserBook[] = data.docs.map((doc) => doc.data());
 
+      books.sort((a, b) => {
+        if (a.createdAt === null && b.createdAt === null) return 0;
+        if (a.createdAt === null) return 1;
+        if (b.createdAt === null) return -1;
+        return b.createdAt.toMillis() - a.createdAt.toMillis();
+      });
+
       setAllBooks(books);
       setFilteredBooks(books);
     } catch (error: unknown) {
