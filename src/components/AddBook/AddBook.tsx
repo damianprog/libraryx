@@ -5,7 +5,14 @@ import {
   FormGroup,
   TextField,
 } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+  type JSX,
+} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -13,12 +20,17 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import styles from "./addBook.module.css";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../../config/firebase";
+import type { Book } from "../../types/Book";
+import type { UserBook } from "../../types/UserBook";
 
-const AddBook = () => {
+type AddBookFormState = Omit<UserBook, "id" | "userId"> &
+  Partial<Pick<UserBook, "id" | "userId">>;
+
+const AddBook = (): JSX.Element => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [book, setBook] = useState({
+  const [book, setBook] = useState<AddBookFormState>({
     title: "",
     authors: "",
     publishedDate: "",
@@ -40,18 +52,21 @@ const AddBook = () => {
 
   useEffect(() => {
     if (state) {
-      setBook((prev) => ({ ...prev, ...state }));
+      setBook((prev) => ({ ...prev, ...(state as Book | UserBook) }));
     }
   }, []);
 
-  const handleInputChange = (event, inputName) => {
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    inputName: Exclude<keyof AddBookFormState, "isRead" | "id" | "userId">,
+  ): void => {
     setBook({
       ...book,
       [inputName]: event.target.value,
     });
   };
 
-  const handleIsReadChange = () => {
+  const handleIsReadChange = (): void => {
     setBook({
       ...book,
       readEndDate: book.isRead ? "" : book.readEndDate,
@@ -59,19 +74,23 @@ const AddBook = () => {
     });
   };
 
-  const updateBook = async () => {
+  const updateBook = async (): Promise<void> => {
+    if (!book.id) return;
     const bookDoc = doc(db, "books", book.id);
     await updateDoc(bookDoc, book);
   };
 
-  const createBook = async () => {
+  const createBook = async (): Promise<void> => {
+    if (!auth.currentUser) return;
     await addDoc(booksCollectionRef, {
       ...book,
       userId: auth.currentUser.uid,
     });
   };
 
-  const onSubmitBook = async (event) => {
+  const onSubmitBook = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
 
     try {
@@ -82,7 +101,7 @@ const AddBook = () => {
       }
 
       navigate("/");
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
     }
   };
