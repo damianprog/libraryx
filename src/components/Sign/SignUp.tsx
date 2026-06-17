@@ -2,11 +2,10 @@ import { Button, Card, Divider, TextField } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import styles from "./sign.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import type { UserCredential } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import getFirebaseErrorCode from "../../firebaseUtils/getFirebaseErrorCode";
 import handleProviderSignInError from "../../firebaseUtils/handleProviderSignInError";
@@ -18,11 +17,6 @@ const SignUp = (): JSX.Element => {
   const [signUserErrorMessage, setSignUserErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const setUserAndNavigate = (uid: string): void => {
-    localStorage.setItem("loggedUserUidLibraryX", uid);
-    navigate("/");
-  };
-
   const signUpUser = async (
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -33,12 +27,8 @@ const SignUp = (): JSX.Element => {
     }
 
     try {
-      const { user }: UserCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      setUserAndNavigate(user.uid);
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate("/");
     } catch (error: unknown) {
       switch (getFirebaseErrorCode(error)) {
         case "auth/email-already-in-use":
@@ -74,11 +64,8 @@ const SignUp = (): JSX.Element => {
 
   const signInUserWithGoogle = async (): Promise<void> => {
     try {
-      const { user }: UserCredential = await signInWithPopup(
-        auth,
-        googleProvider
-      );
-      setUserAndNavigate(user.uid);
+      await signInWithPopup(auth, googleProvider);
+      navigate("/");
     } catch (error: unknown) {
       handleProviderSignInError(error, setSignUserErrorMessage);
     }
@@ -86,21 +73,12 @@ const SignUp = (): JSX.Element => {
 
   const signInUserWithFacebook = async (): Promise<void> => {
     try {
-      const { user }: UserCredential = await signInWithPopup(
-        auth,
-        facebookProvider
-      );
-      setUserAndNavigate(user.uid);
+      await signInWithPopup(auth, facebookProvider);
+      navigate("/");
     } catch (error: unknown) {
       handleProviderSignInError(error, setSignUserErrorMessage);
     }
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("loggedUserUidLibraryX")) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <Card className={styles.sign} variant="outlined">

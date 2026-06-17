@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
-import { useNavigate } from "react-router-dom";
 
 type SearchAppBarProps = {
   onSearchInputChange: (value: string) => void;
@@ -23,7 +22,6 @@ type SearchAppBarProps = {
 const SearchAppBar = ({ onSearchInputChange }: SearchAppBarProps): JSX.Element => {
   const [isDefaultMenuShown, setIsDefaultMenuShown] = useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const navigate = useNavigate();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onSearchInputChange(event.target.value);
@@ -37,8 +35,6 @@ const SearchAppBar = ({ onSearchInputChange }: SearchAppBarProps): JSX.Element =
   const logout = async (): Promise<void> => {
     try {
       await signOut(auth);
-      localStorage.removeItem("loggedUserUidLibraryX");
-      navigate("/sign-in");
     } catch (error: unknown) {
       console.error(error);
     }

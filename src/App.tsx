@@ -6,6 +6,9 @@ import Home from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import UserBookPage from "./pages/UserBookPage";
+import { AuthProvider } from "./auth/AuthContext";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import PublicOnlyRoute from "./auth/PublicOnlyRoute";
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -20,13 +23,50 @@ function App(): JSX.Element {
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/add-book" element={<AddBookPage />} />
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/user-book" element={<UserBookPage />} />
-          </Routes>
+          <AuthProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/add-book"
+                element={
+                  <ProtectedRoute>
+                    <AddBookPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user-book"
+                element={
+                  <ProtectedRoute>
+                    <UserBookPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/sign-in"
+                element={
+                  <PublicOnlyRoute>
+                    <SignInPage />
+                  </PublicOnlyRoute>
+                }
+              />
+              <Route
+                path="/sign-up"
+                element={
+                  <PublicOnlyRoute>
+                    <SignUpPage />
+                  </PublicOnlyRoute>
+                }
+              />
+            </Routes>
+          </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
     </>
