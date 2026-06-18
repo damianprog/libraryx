@@ -4,7 +4,7 @@ import type { FetchedBooksResponse } from "../types/FetchedBooksResponse";
 import restructureApiBook from "./restructureApiBook";
 
 const getValidBooks = (fetchedBooks: FetchedBooksResponse): ApiBook[] =>
-  fetchedBooks.data.items?.filter(
+  fetchedBooks.items?.filter(
     (book): book is ApiBook => !!book.volumeInfo
   ) ?? [];
 

@@ -7,13 +7,13 @@ const getBooksByName = async (name: string): Promise<Book[] | undefined> => {
   try {
     const baseURL = "https://www.googleapis.com";
 
-    const fetchBooksByName = await axios.get<FetchedBooksResponse["data"]>(
+    const fetchBooksByName = await axios.get<FetchedBooksResponse>(
       `${baseURL}/books/v1/volumes?q=${name}&maxResults=40&key=${
         import.meta.env.VITE_GOOGLE_API_KEY
       }`
     );
 
-    const books = handleFetchedBooks(fetchBooksByName);
+    const books = handleFetchedBooks(fetchBooksByName.data);
 
     return books;
   } catch (error: unknown) {
