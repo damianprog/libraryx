@@ -5,7 +5,7 @@ import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import styles from "./sign.module.css";
 import { useState } from "react";
-import type { ChangeEvent, FormEvent, JSX } from "react";
+import type { FormEvent, JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import getFirebaseErrorCode from "../../firebaseUtils/getFirebaseErrorCode";
 import handleProviderSignInError from "../../firebaseUtils/handleProviderSignInError";
@@ -65,7 +65,7 @@ const SignIn = (): JSX.Element => {
     <Card className={styles.sign} variant="outlined">
       <h1>LibraryX</h1>
       <h2>Sign In</h2>
-      <form className={styles.signForm} onSubmit={(event) => signInUser(event)}>
+      <form className={styles.signForm} onSubmit={signInUser}>
         <p
           className={`${styles.signUserError} ${
             signUserErrorMessage && styles.show
@@ -78,20 +78,16 @@ const SignIn = (): JSX.Element => {
           label="Email"
           variant="outlined"
           size="small"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           className={styles.signInput}
           label="Password"
           variant="outlined"
           size="small"
-          type={"password"}
+          type="password"
           sx={{ mt: 3 }}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Button
           className={styles.signButton}

@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import type { ChangeEvent, JSX } from "react";
+import type { JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import getBookByIsbn from "../../apiUtils/getBookByIsbn";
 import type { Book } from "../../types/Book";
@@ -31,9 +31,7 @@ const AddBookSearchIsbn = (): JSX.Element => {
         label="ISBN Number"
         variant="outlined"
         value={input}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setInput(e.target.value)
-        }
+        onChange={(e) => setInput(e.target.value)}
       />
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />

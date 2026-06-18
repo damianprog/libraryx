@@ -3,7 +3,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import styles from "./sign.module.css";
 import { useState } from "react";
-import type { ChangeEvent, FormEvent, JSX } from "react";
+import type { FormEvent, JSX } from "react";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -84,7 +84,7 @@ const SignUp = (): JSX.Element => {
     <Card className={styles.sign} variant="outlined">
       <h1>LibraryX</h1>
       <h2>Sign Up</h2>
-      <form className={styles.signForm} onSubmit={(event) => signUpUser(event)}>
+      <form className={styles.signForm} onSubmit={signUpUser}>
         <p
           className={`${styles.signUserError} ${
             signUserErrorMessage && styles.show
@@ -97,31 +97,25 @@ const SignUp = (): JSX.Element => {
           label="Email"
           variant="outlined"
           size="small"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
           className={styles.signInput}
           label="Password"
           variant="outlined"
           size="small"
-          type={"password"}
+          type="password"
           sx={{ mt: 3 }}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
           className={styles.signInput}
           label="Repeat Password"
           variant="outlined"
           size="small"
-          type={"password"}
+          type="password"
           sx={{ mt: 3 }}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setRepeatPassword(e.target.value)
-          }
+          onChange={(e) => setRepeatPassword(e.target.value)}
         />
         <Button
           className={styles.signButton}
