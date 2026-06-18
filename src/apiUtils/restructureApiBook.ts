@@ -1,8 +1,8 @@
 import type { ApiBook } from "../types/ApiBook";
 import type { Book } from "../types/Book";
+import bookPlaceholder from "../assets/book-placeholder.svg";
 
-const FALLBACK_IMG =
-  "https://thumbs.dreamstime.com/b/old-red-leather-texture-gold-decorative-frame-3780083.jpg";
+const FALLBACK_IMG = bookPlaceholder;
 
 const getAuthors = (book: ApiBook): string =>
   book.volumeInfo.authors?.join(", ") ?? "";

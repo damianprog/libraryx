@@ -4,11 +4,12 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
-import {
-  getFirestore,
-  type FirestoreDataConverter,
-} from "firebase/firestore";
+import { getFirestore, type FirestoreDataConverter } from "firebase/firestore";
+import bookPlaceholder from "../assets/book-placeholder.svg";
 import type { UserBook } from "../types/UserBook";
+
+const LEGACY_PLACEHOLDER_IMG =
+  "https://thumbs.dreamstime.com/b/old-red-leather-texture-gold-decorative-frame-3780083.jpg";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCx6AT27Klt5Yg4HJGP_2rT_e1vmUfbihk",
@@ -33,12 +34,15 @@ export const userBookConverter: FirestoreDataConverter<UserBook> = {
     return rest;
   },
   fromFirestore: (snapshot, options) => {
-    const data = snapshot.data(options);
+    const data = snapshot.data(options) as Omit<UserBook, "id" | "pages"> & {
+      pages: number | string;
+    };
     return {
       ...data,
       id: snapshot.id,
       createdAt: data.createdAt ?? null,
       pages: typeof data.pages === "number" ? String(data.pages) : data.pages,
+      img: data.img === LEGACY_PLACEHOLDER_IMG ? bookPlaceholder : data.img,
     };
   },
 };

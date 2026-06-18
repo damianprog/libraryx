@@ -25,6 +25,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useAuth } from "../../auth/AuthContext";
+import bookPlaceholder from "../../assets/book-placeholder.svg";
 import type { UserBook } from "../../types/UserBook";
 
 type AddBookFormState = Omit<UserBook, "id" | "userId" | "createdAt"> &
@@ -41,7 +42,7 @@ const AddBook = (): JSX.Element => {
     publishedDate: "",
     categories: "",
     isbn: "",
-    img: "https://thumbs.dreamstime.com/b/old-red-leather-texture-gold-decorative-frame-3780083.jpg",
+    img: bookPlaceholder,
     publisher: "",
     pages: "",
     series: "",
