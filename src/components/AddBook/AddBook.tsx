@@ -125,7 +125,7 @@ const AddBook = (): JSX.Element => {
       </header>
       <form
         className={styles.addBookForm}
-        onSubmit={(event) => onSubmitBook(event)}
+        onSubmit={onSubmitBook}
       >
         <div className={styles.container}>
           <div className={styles.addBookInputsRow}>
@@ -133,7 +133,7 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Title"
               variant="outlined"
-              value={book.title ? book.title : ""}
+              value={book.title}
               onChange={(event) => handleInputChange(event, "title")}
               required
             />
@@ -143,7 +143,7 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Authors"
               variant="outlined"
-              value={book.authors ? book.authors : ""}
+              value={book.authors}
               onChange={(event) => handleInputChange(event, "authors")}
             />
           </div>
@@ -154,7 +154,7 @@ const AddBook = (): JSX.Element => {
               variant="outlined"
               multiline
               rows={2}
-              value={book.summary ? book.summary : ""}
+              value={book.summary}
               onChange={(event) => handleInputChange(event, "summary")}
             />
           </div>
@@ -163,7 +163,7 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Notes"
               variant="outlined"
-              value={book.notes ? book.notes : ""}
+              value={book.notes}
               onChange={(event) => handleInputChange(event, "notes")}
             />
           </div>
@@ -216,14 +216,14 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Series"
               variant="outlined"
-              value={book.series ? book.series : ""}
+              value={book.series}
               onChange={(event) => handleInputChange(event, "series")}
             />
             <TextField
               className={styles.input}
               label="Volume"
               variant="outlined"
-              value={book.volume ? book.volume : ""}
+              value={book.volume}
               onChange={(event) => handleInputChange(event, "volume")}
             />
           </div>
@@ -232,7 +232,7 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Categories"
               variant="outlined"
-              value={book.categories ? book.categories : ""}
+              value={book.categories}
               onChange={(event) => handleInputChange(event, "categories")}
             />
           </div>
@@ -241,14 +241,14 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Published date"
               variant="outlined"
-              value={book.publishedDate ? book.publishedDate : ""}
+              value={book.publishedDate}
               onChange={(event) => handleInputChange(event, "publishedDate")}
             />
             <TextField
               className={styles.input}
               label="Publisher"
               variant="outlined"
-              value={book.publisher ? book.publisher : ""}
+              value={book.publisher}
               onChange={(event) => handleInputChange(event, "publisher")}
             />
           </div>
@@ -257,7 +257,7 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="Pages"
               variant="outlined"
-              value={book.pages ? book.pages : ""}
+              value={book.pages}
               onChange={(event) => handleInputChange(event, "pages")}
             />
           </div>
@@ -266,7 +266,7 @@ const AddBook = (): JSX.Element => {
               className={styles.input}
               label="ISBN"
               variant="outlined"
-              value={book.isbn ? book.isbn : ""}
+              value={book.isbn}
               onChange={(event) => handleInputChange(event, "isbn")}
             />
           </div>
