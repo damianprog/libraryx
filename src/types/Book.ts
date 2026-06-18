@@ -7,7 +7,7 @@ export type Book = {
   isbn: string;
   img: string;
   publisher: string;
-  pages: number | string;
+  pages: string;
   series: string;
   volume: string;
   summary: string;

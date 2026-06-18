@@ -73,8 +73,8 @@ const getPublisher = (book: ApiBook): string => {
   return book.volumeInfo.publisher ? book.volumeInfo.publisher : "";
 };
 
-const getPages = (book: ApiBook): number | string => {
-  return book.volumeInfo.pageCount ? book.volumeInfo.pageCount : "";
+const getPages = (book: ApiBook): string => {
+  return book.volumeInfo.pageCount ? String(book.volumeInfo.pageCount) : "";
 };
 
 const restructureApiBook = (book: ApiBook): Book => {
