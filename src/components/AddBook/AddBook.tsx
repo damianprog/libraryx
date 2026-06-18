@@ -23,7 +23,8 @@ import {
   updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { db, auth } from "../../config/firebase";
+import { db } from "../../config/firebase";
+import { useAuth } from "../../auth/AuthContext";
 import type { UserBook } from "../../types/UserBook";
 
 type AddBookFormState = Omit<UserBook, "id" | "userId" | "createdAt"> &
@@ -32,6 +33,7 @@ type AddBookFormState = Omit<UserBook, "id" | "userId" | "createdAt"> &
 const AddBook = (): JSX.Element => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [book, setBook] = useState<AddBookFormState>({
     title: "",
@@ -85,10 +87,10 @@ const AddBook = (): JSX.Element => {
   };
 
   const createBook = async (): Promise<void> => {
-    if (!auth.currentUser) return;
+    if (!user) return;
     await addDoc(booksCollectionRef, {
       ...book,
-      userId: auth.currentUser.uid,
+      userId: user.uid,
       createdAt: serverTimestamp(),
     });
   };
