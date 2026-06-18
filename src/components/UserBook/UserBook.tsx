@@ -62,18 +62,14 @@ const UserBook = (): JSX.Element | null => {
           <div className={styles.userBookInfo}>
             <h2>{book.title}</h2>
             <h3 className={styles.userBookInfoAuthors}>{book.authors}</h3>
-            {book.categories ? <p>Categories: {book.categories}</p> : ""}
-            {book.publishedDate ? (
-              <p>Published date: {book.publishedDate}</p>
-            ) : (
-              ""
-            )}
-            {book.publisher ? <p>Publisher: {book.publisher}</p> : ""}
-            {book.pages ? <p>{book.pages} pages</p> : ""}
-            {book.isbn ? <p>ISBN: {book.isbn}</p> : ""}
-            {book.series ? <p>Series: {book.series}</p> : ""}
-            {book.summary ? <p>Summary: {book.summary}</p> : ""}
-            {book.notes ? <p>Notes: {book.notes}</p> : ""}
+            {book.categories && <p>Categories: {book.categories}</p>}
+            {book.publishedDate && <p>Published date: {book.publishedDate}</p>}
+            {book.publisher && <p>Publisher: {book.publisher}</p>}
+            {book.pages && <p>{book.pages} pages</p>}
+            {book.isbn && <p>ISBN: {book.isbn}</p>}
+            {book.series && <p>Series: {book.series}</p>}
+            {book.summary && <p>Summary: {book.summary}</p>}
+            {book.notes && <p>Notes: {book.notes}</p>}
           </div>
         </div>
       </div>

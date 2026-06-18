@@ -48,7 +48,7 @@ function BooksList<T extends Book>({
               </div>
               <div className={styles.resultsRowDate}>{book.publishedDate}</div>
             </div>
-            {!showingUserBooks ? (
+            {!showingUserBooks && (
               <div className={styles.resultsRowAdd}>
                 <AddIcon
                   onClick={() => {
@@ -56,8 +56,6 @@ function BooksList<T extends Book>({
                   }}
                 />
               </div>
-            ) : (
-              ""
             )}
           </div>
         ))
