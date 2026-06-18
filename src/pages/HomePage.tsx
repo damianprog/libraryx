@@ -8,7 +8,7 @@ import type { UserBook } from "../types/UserBook";
 import { useAuth } from "../auth/AuthContext";
 import styles from "./homePage.module.css";
 
-const Home = (): JSX.Element => {
+const HomePage = (): JSX.Element => {
   const { user } = useAuth();
   const [allBooks, setAllBooks] = useState<UserBook[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<UserBook[]>([]);
@@ -60,4 +60,4 @@ const Home = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default HomePage;

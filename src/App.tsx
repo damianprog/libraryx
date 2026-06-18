@@ -2,7 +2,7 @@ import type { JSX } from "react";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddBookPage from "./pages/AddBookPage";
-import Home from "./pages/HomePage";
+import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import UserBookPage from "./pages/UserBookPage";
@@ -29,7 +29,7 @@ function App(): JSX.Element {
                 path="/"
                 element={
                   <ProtectedRoute>
-                    <Home />
+                    <HomePage />
                   </ProtectedRoute>
                 }
               />
