@@ -6,7 +6,7 @@ import { useState } from "react";
 import type { FormEvent, JSX } from "react";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import getFirebaseErrorCode from "../../firebaseUtils/getFirebaseErrorCode";
 import handleProviderSignInError from "../../firebaseUtils/handleProviderSignInError";
 
@@ -147,7 +147,7 @@ const SignUp = (): JSX.Element => {
           &nbsp; Sign up with Facebook
         </Button>
         <p className={styles.signUp}>
-          Already have an account? <a href="/sign-in">Sign In</a>{" "}
+          Already have an account? <Link to="/sign-in">Sign In</Link>{" "}
         </p>
       </form>
     </Card>

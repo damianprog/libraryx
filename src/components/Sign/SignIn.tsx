@@ -6,7 +6,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import styles from "./sign.module.css";
 import { useState } from "react";
 import type { FormEvent, JSX } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import getFirebaseErrorCode from "../../firebaseUtils/getFirebaseErrorCode";
 import handleProviderSignInError from "../../firebaseUtils/handleProviderSignInError";
 
@@ -119,7 +119,7 @@ const SignIn = (): JSX.Element => {
           &nbsp; Sign in with Facebook
         </Button>
         <p className={styles.signUp}>
-          Don't have an account? <a href="/sign-up">Sign up</a>{" "}
+          Don't have an account? <Link to="/sign-up">Sign up</Link>{" "}
         </p>
       </form>
     </Card>
