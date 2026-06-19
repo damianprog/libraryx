@@ -31,8 +31,23 @@ const AddBookSearchIsbn = (): JSX.Element => {
         label="ISBN Number"
         variant="outlined"
         value={input}
+        slotProps={{ htmlInput: { inputMode: "numeric" } }}
         onChange={(e) => setInput(e.target.value)}
       />
+      <div className={styles.extraChars}>
+        <Button
+          onClick={() => setInput((prev) => prev + "X")}
+          variant="outlined"
+        >
+          X
+        </Button>
+        <Button
+          onClick={() => setInput((prev) => prev + "-")}
+          variant="outlined"
+        >
+          -
+        </Button>
+      </div>
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />
       <div className={styles.buttons}>

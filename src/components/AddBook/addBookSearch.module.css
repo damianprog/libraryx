@@ -2,6 +2,18 @@
   width: 100%;
 }
 
+.extraChars {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.extraChars button {
+  min-width: 64px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
 .error {
   color: red;
   margin-top: 10px;
