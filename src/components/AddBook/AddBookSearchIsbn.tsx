@@ -1,9 +1,10 @@
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { useState } from "react";
 import type { JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import getBookByIsbn from "../../apiUtils/getBookByIsbn";
 import type { Book } from "../../types/Book";
+import IsbnTextField from "./IsbnTextField";
 import styles from "./addBookSearch.module.css";
 
 const AddBookSearchIsbn = (): JSX.Element => {
@@ -26,28 +27,11 @@ const AddBookSearchIsbn = (): JSX.Element => {
 
   return (
     <>
-      <TextField
-        className={styles.searchInput}
-        label="ISBN Number"
-        variant="outlined"
+      <IsbnTextField
         value={input}
-        slotProps={{ htmlInput: { inputMode: "numeric" } }}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={setInput}
+        label="ISBN Number"
       />
-      <div className={styles.extraChars}>
-        <Button
-          onClick={() => setInput((prev) => prev + "X")}
-          variant="outlined"
-        >
-          X
-        </Button>
-        <Button
-          onClick={() => setInput((prev) => prev + "-")}
-          variant="outlined"
-        >
-          -
-        </Button>
-      </div>
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />
       <div className={styles.buttons}>

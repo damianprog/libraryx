@@ -27,6 +27,7 @@ import { db } from "../../config/firebase";
 import { useAuth } from "../../auth/AuthContext";
 import bookPlaceholder from "../../assets/book-placeholder.svg";
 import type { UserBook } from "../../types/UserBook";
+import IsbnTextField from "./IsbnTextField";
 
 type AddBookFormState = Omit<UserBook, "id" | "userId" | "createdAt"> &
   Partial<Pick<UserBook, "id" | "userId">>;
@@ -263,12 +264,9 @@ const AddBook = (): JSX.Element => {
             />
           </div>
           <div className={styles.addBookInputsRow}>
-            <TextField
-              className={styles.input}
-              label="ISBN"
-              variant="outlined"
+            <IsbnTextField
               value={book.isbn}
-              onChange={(event) => handleInputChange(event, "isbn")}
+              onChange={(value) => setBook({ ...book, isbn: value })}
             />
           </div>
           <div className={styles.addBookInputsRow}>
