@@ -1,8 +1,12 @@
+.below {
+  padding-top: 65px;
+}
+
 .container {
   display: flex;
   justify-content: center;
   max-width: 500px;
   min-height: 400px;
-  margin: 65px auto 0 auto;
+  margin: 0 auto;
   position: relative;
 }

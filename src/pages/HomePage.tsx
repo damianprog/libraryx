@@ -1,24 +1,39 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useMemo, useState, type JSX } from "react";
 import BooksList from "../components/BooksList/BooksList";
 import AddBookModal from "../components/AddBookModal/AddBookModal";
 import SearchAppBar from "../components/SearchAppBar";
+import BooksFilterBar from "../components/BooksFilterBar/BooksFilterBar";
+import type {
+  FilterOption,
+  SortOption,
+} from "../components/BooksFilterBar/BooksFilterBar";
 import { db, userBookConverter } from "../config/firebase";
 import type { UserBook } from "../types/UserBook";
 import { useAuth } from "../auth/AuthContext";
+import {
+  filterByStatus,
+  filterBySearch,
+  sortBooks,
+} from "../utils/booksPipeline";
 import styles from "./homePage.module.css";
 
 const HomePage = (): JSX.Element => {
   const { user } = useAuth();
   const [allBooks, setAllBooks] = useState<UserBook[]>([]);
-  const [filteredBooks, setFilteredBooks] = useState<UserBook[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [sortBy, setSortBy] = useState<SortOption>("date");
+  const [filterBy, setFilterBy] = useState<FilterOption>("all");
 
   const onSearchInputChange = (input: string): void => {
-    const foundBooks: UserBook[] = allBooks.filter((book) =>
-      book.title.toLowerCase().includes(input.toLowerCase())
-    );
-    setFilteredBooks(foundBooks);
+    setSearchInput(input);
   };
+
+  const visibleBooks: UserBook[] = useMemo(() => {
+    let books = filterByStatus(allBooks, filterBy);
+    books = filterBySearch(books, searchInput);
+    return sortBooks(books, sortBy);
+  }, [allBooks, sortBy, filterBy, searchInput]);
 
   useEffect(() => {
     if (!user) return;
@@ -31,16 +46,7 @@ const HomePage = (): JSX.Element => {
         );
         const data = await getDocs(booksCollectionRef);
         const books: UserBook[] = data.docs.map((doc) => doc.data());
-
-        books.sort((a, b) => {
-          if (a.createdAt === null && b.createdAt === null) return 0;
-          if (a.createdAt === null) return 1;
-          if (b.createdAt === null) return -1;
-          return b.createdAt.toMillis() - a.createdAt.toMillis();
-        });
-
         setAllBooks(books);
-        setFilteredBooks(books);
       } catch (error: unknown) {
         console.error(error);
       }
@@ -52,9 +58,17 @@ const HomePage = (): JSX.Element => {
   return (
     <>
       <SearchAppBar onSearchInputChange={onSearchInputChange} />
-      <div className={styles.container}>
-        <BooksList<UserBook> books={filteredBooks} showingUserBooks={true} />
-        <AddBookModal />
+      <div className={styles.below}>
+        <BooksFilterBar
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          filterBy={filterBy}
+          onFilterChange={setFilterBy}
+        />
+        <div className={styles.container}>
+          <BooksList<UserBook> books={visibleBooks} showingUserBooks={true} />
+          <AddBookModal />
+        </div>
       </div>
     </>
   );
