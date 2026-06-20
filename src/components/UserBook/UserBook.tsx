@@ -70,6 +70,11 @@ const UserBook = (): JSX.Element | null => {
             {book.series && <p>Series: {book.series}</p>}
             {book.summary && <p>Summary: {book.summary}</p>}
             {book.notes && <p>Notes: {book.notes}</p>}
+            {(book.isRead || book.readStartDate) && (
+              <p>Status: {book.isRead ? "Read" : "Currently reading"}</p>
+            )}
+            {book.readStartDate && <p>Started: {book.readStartDate}</p>}
+            {book.readEndDate && <p>Finished: {book.readEndDate}</p>}
           </div>
         </div>
       </div>
