@@ -82,7 +82,7 @@ const SignUp = (): JSX.Element => {
 
   return (
     <Card className={styles.sign} variant="outlined">
-      <h1>LibraryX</h1>
+      <h1>WizLib</h1>
       <h2>Sign Up</h2>
       <form className={styles.signForm} onSubmit={signUpUser}>
         <p

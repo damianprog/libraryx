@@ -122,7 +122,7 @@ const AddBook = (): JSX.Element => {
           <Link className={styles.backIcon} to="/">
             <ArrowBackIcon />
           </Link>
-          <h1>LibraryX</h1>
+          <h1>WizLib</h1>
         </div>
       </header>
       <form

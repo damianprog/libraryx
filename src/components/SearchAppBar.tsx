@@ -67,7 +67,7 @@ const SearchAppBar = ({ onSearchInputChange }: SearchAppBarProps): JSX.Element =
                   </List>
                 </div>
               </Drawer>
-              <h1>LibraryX</h1>
+              <h1>WizLib</h1>
             </div>
             <div className={styles.deafultMenuRightSide}>
               <SearchIcon className={styles.icon} onClick={handleMenuSwitch} />

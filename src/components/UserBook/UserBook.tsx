@@ -47,7 +47,7 @@ const UserBook = (): JSX.Element | null => {
               <Link className={styles.icon} to="/">
                 <ArrowBackIcon />
               </Link>
-              <h1>LibraryX</h1>
+              <h1>WizLib</h1>
             </div>
             <div className={styles.headerRightSide}>
               <UserBookDeleteModal onUserBookDelete={onUserBookDelete} />
