@@ -1,7 +1,8 @@
-import type { JSX } from "react";
+import { useState, type JSX } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import type { Book } from "../../types/Book";
+import BookPreviewModal from "../BookPreviewModal/BookPreviewModal";
 import styles from "./booksList.module.css";
 
 type BooksListProps<T extends Book> = {
@@ -14,10 +15,13 @@ function BooksList<T extends Book>({
   showingUserBooks = false,
 }: BooksListProps<T>): JSX.Element {
   const navigate = useNavigate();
+  const [previewBook, setPreviewBook] = useState<T | null>(null);
 
   const handleResultsRowInfoClick = (book: T): void => {
     if (showingUserBooks) {
       navigate("/user-book", { state: book });
+    } else {
+      setPreviewBook(book);
     }
   };
 
@@ -59,6 +63,12 @@ function BooksList<T extends Book>({
             )}
           </div>
         ))
+      )}
+      {!showingUserBooks && (
+        <BookPreviewModal
+          book={previewBook}
+          onClose={() => setPreviewBook(null)}
+        />
       )}
     </div>
   );

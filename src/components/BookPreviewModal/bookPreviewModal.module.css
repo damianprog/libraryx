@@ -1,0 +1,45 @@
+.modalBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 95vw;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-shadow: 24;
+  padding: 10px;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.close {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+}
+
+.close svg {
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+}
+
+.img {
+  object-fit: contain;
+  width: 120px;
+}
+
+.info {
+  margin-left: 15px;
+}
+
+.info p {
+  margin-bottom: 10px;
+}
+
+.authors {
+  margin: 18px 0 10px 0;
+}
