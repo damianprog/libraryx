@@ -11,6 +11,9 @@ import type { UserBook } from "../types/UserBook";
 const LEGACY_PLACEHOLDER_IMG =
   "https://thumbs.dreamstime.com/b/old-red-leather-texture-gold-decorative-frame-3780083.jpg";
 
+const isLegacyOrangePlaceholder = (img: string): boolean =>
+  img.startsWith("data:image/svg+xml;base64,") && img.includes("RjU3RjE3");
+
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCx6AT27Klt5Yg4HJGP_2rT_e1vmUfbihk",
   authDomain: "libraryx-61c82.firebaseapp.com",
@@ -42,7 +45,11 @@ export const userBookConverter: FirestoreDataConverter<UserBook> = {
       id: snapshot.id,
       createdAt: data.createdAt ?? null,
       pages: typeof data.pages === "number" ? String(data.pages) : data.pages,
-      img: data.img === LEGACY_PLACEHOLDER_IMG ? bookPlaceholder : data.img,
+      img:
+        data.img === LEGACY_PLACEHOLDER_IMG ||
+        isLegacyOrangePlaceholder(data.img)
+          ? bookPlaceholder
+          : data.img,
     };
   },
 };
