@@ -24,10 +24,18 @@ const IsbnTextField = ({
         onChange={(e) => onChange(e.target.value)}
       />
       <div className={styles.extraChars}>
-        <Button onClick={() => onChange(value + "X")} variant="outlined">
+        <Button
+          type="button"
+          onClick={() => onChange(value + "X")}
+          variant="outlined"
+        >
           X
         </Button>
-        <Button onClick={() => onChange(value + "-")} variant="outlined">
+        <Button
+          type="button"
+          onClick={() => onChange(value + "-")}
+          variant="outlined"
+        >
           -
         </Button>
       </div>

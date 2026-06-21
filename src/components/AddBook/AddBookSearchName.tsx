@@ -1,6 +1,6 @@
 import { Box, Button, Modal, TextField } from "@mui/material";
 import { useState } from "react";
-import type { ChangeEvent, JSX } from "react";
+import type { ChangeEvent, FormEvent, JSX } from "react";
 import { Link } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import getBooksByName from "../../apiUtils/getBooksByName";
@@ -21,7 +21,8 @@ const AddBookSearchName = (): JSX.Element => {
     setInput(event.target.value);
   };
 
-  const getBooks = async (): Promise<void> => {
+  const getBooks = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
     if (input === "") {
       return;
     }
@@ -37,23 +38,27 @@ const AddBookSearchName = (): JSX.Element => {
 
   return (
     <>
-      <TextField
-        className={styles.searchInput}
-        label="Title, author, ..."
-        variant="outlined"
-        value={input}
-        onChange={handleInputChange}
-      />
-      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-      <br />
-      <div className={styles.buttons}>
-        <Button onClick={getBooks} variant="text">
-          Search
-        </Button>
-        <Link to="/add-book">
-          <Button variant="text">Add the book manually</Button>
-        </Link>
-      </div>
+      <form onSubmit={getBooks}>
+        <TextField
+          className={styles.searchInput}
+          label="Title, author, ..."
+          variant="outlined"
+          value={input}
+          onChange={handleInputChange}
+        />
+        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        <br />
+        <div className={styles.buttons}>
+          <Button type="submit" variant="text">
+            Search
+          </Button>
+          <Link to="/add-book">
+            <Button type="button" variant="text">
+              Add the book manually
+            </Button>
+          </Link>
+        </div>
+      </form>
       <Modal
         open={open}
         onClose={handleClose}
@@ -65,7 +70,7 @@ const AddBookSearchName = (): JSX.Element => {
           <div className={styles.modalBoxClose}>
             <CloseIcon onClick={handleClose} />
           </div>
-          <div className={styles.modalBoxSearch}>
+          <form className={styles.modalBoxSearch} onSubmit={getBooks}>
             <TextField
               className={styles.modalBoxSearchInput}
               label="Title, author, ..."
@@ -73,10 +78,10 @@ const AddBookSearchName = (): JSX.Element => {
               value={input}
               onChange={handleInputChange}
             />
-            <Button onClick={getBooks} variant="text">
+            <Button type="submit" variant="text">
               OK
             </Button>
-          </div>
+          </form>
           {errorMessage && <p className={styles.error}>{errorMessage}</p>}
           <BooksList<Book> books={foundBooks} />
         </Box>

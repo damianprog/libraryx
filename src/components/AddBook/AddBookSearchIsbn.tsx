@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
-import type { JSX } from "react";
+import type { FormEvent, JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import getBookByIsbn from "../../apiUtils/getBookByIsbn";
 import type { Book } from "../../types/Book";
@@ -12,7 +12,8 @@ const AddBookSearchIsbn = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const getBooks = async (): Promise<void> => {
+  const getBooks = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
     if (input === "") {
       return;
     }
@@ -26,7 +27,7 @@ const AddBookSearchIsbn = (): JSX.Element => {
   };
 
   return (
-    <>
+    <form onSubmit={getBooks}>
       <IsbnTextField
         value={input}
         onChange={setInput}
@@ -35,14 +36,16 @@ const AddBookSearchIsbn = (): JSX.Element => {
       {errorMessage && <p className={styles.error}>{errorMessage}</p>}
       <br />
       <div className={styles.buttons}>
-        <Button onClick={getBooks} variant="text">
+        <Button type="submit" variant="text">
           Search with ISBN
         </Button>
         <Link to="/add-book">
-          <Button variant="text">Add the book manually</Button>
+          <Button type="button" variant="text">
+            Add the book manually
+          </Button>
         </Link>
       </div>
-    </>
+    </form>
   );
 };
 
