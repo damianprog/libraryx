@@ -26,6 +26,7 @@ const IsbnTextField = ({
       <div className={styles.extraChars}>
         <Button
           type="button"
+          onMouseDown={(e) => e.preventDefault()}
           onClick={() => onChange(value + "X")}
           variant="outlined"
         >
@@ -33,6 +34,7 @@ const IsbnTextField = ({
         </Button>
         <Button
           type="button"
+          onMouseDown={(e) => e.preventDefault()}
           onClick={() => onChange(value + "-")}
           variant="outlined"
         >
