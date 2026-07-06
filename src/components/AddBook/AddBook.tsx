@@ -25,7 +25,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useAuth } from "../../auth/AuthContext";
-import bookPlaceholder from "../../assets/book-placeholder.svg";
+import bookPlaceholder from "../../assets/book-placeholder.png";
+import wizlibLogo from "../../assets/wizlib-logo.png";
 import type { UserBook } from "../../types/UserBook";
 import IsbnTextField from "./IsbnTextField";
 
@@ -122,7 +123,7 @@ const AddBook = (): JSX.Element => {
           <Link className={styles.backIcon} to="/">
             <ArrowBackIcon />
           </Link>
-          <h1>WizLib</h1>
+          <img className={styles.logo} src={wizlibLogo} alt="WizLib" />
         </div>
       </header>
       <form

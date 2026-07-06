@@ -1,6 +1,6 @@
 import type { ApiBook } from "../types/ApiBook";
 import type { Book } from "../types/Book";
-import bookPlaceholder from "../assets/book-placeholder.svg";
+import bookPlaceholder from "../assets/book-placeholder.png";
 
 const FALLBACK_IMG = bookPlaceholder;
 

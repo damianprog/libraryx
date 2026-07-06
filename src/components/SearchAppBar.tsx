@@ -1,4 +1,5 @@
 import styles from "./searchAppBar.module.css";
+import wizlibLogo from "../assets/wizlib-logo.png";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -67,7 +68,7 @@ const SearchAppBar = ({ onSearchInputChange }: SearchAppBarProps): JSX.Element =
                   </List>
                 </div>
               </Drawer>
-              <h1>WizLib</h1>
+              <img className={styles.logo} src={wizlibLogo} alt="WizLib" />
             </div>
             <div className={styles.deafultMenuRightSide}>
               <SearchIcon className={styles.icon} onClick={handleMenuSwitch} />

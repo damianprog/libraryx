@@ -2,6 +2,7 @@ import { Button, Card, Divider, TextField } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import styles from "./sign.module.css";
+import wizlibLogo from "../../assets/wizlib-logo.png";
 import { useState } from "react";
 import type { FormEvent, JSX } from "react";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
@@ -82,7 +83,7 @@ const SignUp = (): JSX.Element => {
 
   return (
     <Card className={styles.sign} variant="outlined">
-      <h1>WizLib</h1>
+      <img className={styles.logo} src={wizlibLogo} alt="WizLib" />
       <h2>Sign Up</h2>
       <form className={styles.signForm} onSubmit={signUpUser}>
         <p

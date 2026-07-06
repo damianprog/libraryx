@@ -5,7 +5,7 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 import { getFirestore, type FirestoreDataConverter } from "firebase/firestore";
-import bookPlaceholder from "../assets/book-placeholder.svg";
+import bookPlaceholder from "../assets/book-placeholder.png";
 import type { UserBook } from "../types/UserBook";
 
 const LEGACY_PLACEHOLDER_IMG =
@@ -14,7 +14,8 @@ const LEGACY_PLACEHOLDER_IMG =
 const isLegacyPlaceholder = (img: string | undefined): boolean =>
   !img ||
   img === LEGACY_PLACEHOLDER_IMG ||
-  (img.startsWith("data:image/svg+xml;base64,") && img.includes("RjU3RjE3"));
+  img.startsWith("data:image/svg+xml;base64,") ||
+  (img.includes("book-placeholder") && img.endsWith(".svg"));
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCx6AT27Klt5Yg4HJGP_2rT_e1vmUfbihk",

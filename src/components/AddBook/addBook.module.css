@@ -27,9 +27,10 @@
   padding: 0 10px;
 }
 
-.container h1 {
-  font-size: 1.25rem;
+.container .logo {
+  height: 40px;
   margin-left: 20px;
+  display: block;
 }
 
 .addBookForm {

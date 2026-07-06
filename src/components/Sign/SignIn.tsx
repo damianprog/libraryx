@@ -4,6 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { auth, googleProvider, facebookProvider } from "../../config/firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import styles from "./sign.module.css";
+import wizlibLogo from "../../assets/wizlib-logo.png";
 import { useState } from "react";
 import type { FormEvent, JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -63,7 +64,7 @@ const SignIn = (): JSX.Element => {
 
   return (
     <Card className={styles.sign} variant="outlined">
-      <h1>WizLib</h1>
+      <img className={styles.logo} src={wizlibLogo} alt="WizLib" />
       <h2>Sign In</h2>
       <form className={styles.signForm} onSubmit={signInUser}>
         <p

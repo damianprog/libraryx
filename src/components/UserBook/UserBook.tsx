@@ -7,6 +7,7 @@ import UserBookDeleteModal from "./UserBookDeleteModal";
 import { db } from "../../config/firebase";
 import type { UserBook as UserBookType } from "../../types/UserBook";
 import styles from "./userBook.module.css";
+import wizlibLogo from "../../assets/wizlib-logo.png";
 
 const UserBook = (): JSX.Element | null => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const UserBook = (): JSX.Element | null => {
               <Link className={styles.icon} to="/">
                 <ArrowBackIcon />
               </Link>
-              <h1>WizLib</h1>
+              <img className={styles.logo} src={wizlibLogo} alt="WizLib" />
             </div>
             <div className={styles.headerRightSide}>
               <UserBookDeleteModal onUserBookDelete={onUserBookDelete} />
