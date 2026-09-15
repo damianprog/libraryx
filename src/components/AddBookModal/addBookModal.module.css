@@ -22,6 +22,16 @@
   bottom: 20px;
   right: 20px;
   cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* On wide screens anchor the button just outside the right edge of the
+   500px centered list column instead of the far corner of the viewport */
+@media (min-width: 640px) {
+  .addButton {
+    right: auto;
+    left: calc(50% + 250px + 16px);
+  }
 }
 
 .modalBoxClose {

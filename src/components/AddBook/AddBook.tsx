@@ -29,6 +29,7 @@ import bookPlaceholder from "../../assets/book-placeholder.png";
 import wizlibLogo from "../../assets/wizlib-logo.png";
 import type { UserBook } from "../../types/UserBook";
 import IsbnTextField from "./IsbnTextField";
+import DateInput from "./DateInput";
 
 type AddBookFormState = Omit<UserBook, "id" | "userId" | "createdAt"> &
   Partial<Pick<UserBook, "id" | "userId">>;
@@ -186,8 +187,7 @@ const AddBook = (): JSX.Element => {
             <div className={styles.readDates}>
               <div>
                 <p>Start date</p>
-                <input
-                  type="date"
+                <DateInput
                   value={book.readStartDate}
                   className={styles.dateInput}
                   onChange={(event) =>
@@ -199,8 +199,7 @@ const AddBook = (): JSX.Element => {
                 {book.isRead ? (
                   <>
                     <p>End date</p>
-                    <input
-                      type="date"
+                    <DateInput
                       value={book.readEndDate}
                       className={styles.dateInput}
                       onChange={(event) =>
